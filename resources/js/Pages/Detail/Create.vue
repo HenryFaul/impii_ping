@@ -355,22 +355,23 @@
                   To finalise your security detail you need to pay a R100 deposit via PayFast.
                   </div>
 
+                  {{pay_form}}
 
                   <form id="payfast-pay-form" ref="payfast_pay_form" action="https://www.payfast.co.za/eng/process" method="post">
 
-                    <text-input v-model="pay_form.merchant_id" name="merchant_id" type="hidden"/>
-                    <text-input v-model="pay_form.merchant_key" name="merchant_key" type="hidden"/>
-                    <text-input v-model="pay_form.return_url" name="return_url" type="hidden"/>
-                    <text-input v-model="pay_form.cancel_url" name="cancel_url" type="hidden"/>
-                    <text-input v-model="pay_form.notify_url" name="notify_url" type="hidden"/>
-                    <text-input v-model="pay_form.name_first" name="name_first" type="hidden"/>
-                    <text-input v-model="pay_form.name_last" name="name_last" type="hidden"/>
-                    <text-input v-model="pay_form.email_address" name="email_address" type="hidden"/>
-                    <text-input v-model="pay_form.m_payment_id" name="m_payment_id" type="hidden"/>
-                    <text-input v-model="pay_form.amount" name="amount" type="hidden"/>
-                    <text-input v-model="pay_form.item_name" name="item_name" type="hidden"/>
-                    <text-input v-model="pay_form.item_description" name="item_description" type="hidden"/>
-                    <text-input v-model="pay_form.email_confirmation" name="email_confirmation" type="hidden"/>
+                    <text-input v-model="pay_form.merchant_id" name="merchant_id"/>
+                    <text-input v-model="pay_form.merchant_key" name="merchant_key" />
+                    <text-input v-model="pay_form.return_url" name="return_url" />
+                    <text-input v-model="pay_form.cancel_url" name="cancel_url"/>
+                    <text-input v-model="pay_form.notify_url" name="notify_url" />
+                    <text-input v-model="pay_form.name_first" name="name_first" />
+                    <text-input v-model="pay_form.name_last" name="name_last" />
+                    <text-input v-model="pay_form.email_address" name="email_address"/>
+                    <text-input v-model="pay_form.m_payment_id" name="m_payment_id" />
+                    <text-input v-model="pay_form.amount" name="amount" />
+                    <text-input v-model="pay_form.item_name" name="item_name" />
+                    <text-input v-model="pay_form.item_description" name="item_description" />
+                    <text-input v-model="pay_form.email_confirmation" name="email_confirmation" />
 
                     <loading-button  class="btn-indigo" :loading="dep_but_loading" @click="doSubmit">Pay deposit (Payfast)</loading-button>
                   </form>

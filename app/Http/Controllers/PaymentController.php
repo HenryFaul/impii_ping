@@ -138,12 +138,11 @@ class PaymentController extends Controller
         }
 
         //if total charge is more than the voucher
-        if ($calc_total_charge >= $max_amount) {
+        if ($calc_total_charge > $max_amount) {
 
             //create a payment history object
 
             $paymentHistory = PaymentHistory::create([
-
                 'detail_id' => $securityDetail->id,
                 'reference' => $deposit_reference,
                 'status' => 'pending',
