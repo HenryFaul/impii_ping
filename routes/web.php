@@ -1,13 +1,20 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SecurityDetailController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\VoucherController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +27,109 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Security Detail
+
+Route::get('/detail/new', function () {
+    return Inertia::render('Detail/Create');
+})->middleware(['auth'])->name('detail.create');
+
+
+Route::get('detail/{detail}/view', [SecurityDetailController::class, 'index'])
+    ->name('detail.view')
+    ->middleware('auth');
+
+
+//Payment
+
+Route::post('/pay', [PaymentController::class, 'depositPayment'])
+    ->name('payment')
+    ->middleware('auth');
+
+Route::get('/pay/success', function () {
+    return Inertia::render('Payments/Success');
+})->middleware(['auth'])->name('payment.success');
+
+Route::get('/pay/cancel', function () {
+    return Inertia::render('Payments/Cancel');
+})->middleware(['auth'])->name('payment.cancel');
+
+Route::get('/pay/history', function () {
+    return Inertia::render('Payments/Index');
+})->middleware(['auth'])->name('payment.history');
+
+Route::post('/pay/notify', [PaymentController::class, 'itn'])
+    ->name('payment.notification');
+
+//Vouchers
+
+Route::get('/vouchers', [VoucherController::class, 'index'])
+    ->name('vouchers')
+    ->middleware('auth');
+
+Route::get('/voucher/{voucher_key}', [VoucherController::class, 'voucher'])
+    ->name('voucher.key')
+    ->middleware('auth');
+
+//SOS
+
+Route::get('/sos', function () {
+    return Inertia::render('Users/Sos');
+})->middleware(['auth'])->name('sos');
+
+//Admin
+
+/*Route::get('/admin', function () {
+    return Inertia::render('Admin/Index');
+})->middleware(['auth'])->name('admin');*/
+
+Route::get('/admin', [AdminController::class, 'index'])
+    ->name('admin')
+    ->middleware('auth');
+
+
+Route::get('admin/detail/{detail}/view', [SecurityDetailController::class, 'indexAdmin'])
+    ->name('admin.detail.view')
+    ->middleware('auth');
+
+Route::put('admin/detail/{detail}/update', [SecurityDetailController::class, 'update'])
+    ->name('detail.update')
+    ->middleware('auth');
+
+
+//Client
+
+Route::get('/client', function () {
+    return Inertia::render('Client/Index');
+})->middleware(['auth'])->name('client');
+
+//Agent
+
+Route::get('/agent', function () {
+    return Inertia::render('Agent/Index');
+})->middleware(['auth'])->name('agent');
+
+Route::get('agent/{user}/profile', [AgentController::class, 'profile'])
+    ->name('agent.profile')
+    ->middleware('auth');
+
+
+Route::get('agent/{user}/edit', [AgentController::class, 'index'])
+    ->name('agent.edit')
+    ->middleware('auth');
+
+Route::put('agent/{user}/update', [AgentController::class, 'update'])
+    ->name('agent.update')
+    ->middleware('auth');
+
 // Auth
+
+Route::get('register', [RegisteredUserController::class, 'create'])
+    ->name('register')
+    ->middleware('guest');
+
+Route::post('register', [RegisteredUserController::class, 'store'])
+    ->name('register.store')
+    ->middleware('guest');
 
 Route::get('login', [AuthenticatedSessionController::class, 'create'])
     ->name('login')

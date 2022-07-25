@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Gate;
+
 
 class UsersController extends Controller
 {
@@ -25,7 +27,7 @@ class UsersController extends Controller
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
-                    'owner' => $user->owner,
+                    'cell_no' => $user->cell_no,
                     'photo' => $user->photo_path ? URL::route('image', ['path' => $user->photo_path, 'w' => 40, 'h' => 40, 'fit' => 'crop']) : null,
                     'deleted_at' => $user->deleted_at,
                 ]),
@@ -44,7 +46,7 @@ class UsersController extends Controller
             'last_name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')],
             'password' => ['nullable'],
-            'owner' => ['required', 'boolean'],
+            'cell_no' => ['required','digits:10'],
             'photo' => ['nullable', 'image'],
         ]);
 
@@ -53,7 +55,7 @@ class UsersController extends Controller
             'last_name' => Request::get('last_name'),
             'email' => Request::get('email'),
             'password' => Request::get('password'),
-            'owner' => Request::get('owner'),
+            'cell_no' => Request::get('cell_no'),
             'photo_path' => Request::file('photo') ? Request::file('photo')->store('users') : null,
         ]);
 
@@ -62,13 +64,23 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+
+        $this->authorize('edit-user',$user);
+
+
+       /* if (Gate::denies('edit-user',$user)){
+            abort(403);
+        }*/
+
+
+
         return Inertia::render('Users/Edit', [
             'user' => [
                 'id' => $user->id,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,
-                'owner' => $user->owner,
+                'cell_no' => $user->cell_no,
                 'photo' => $user->photo_path ? URL::route('image', ['path' => $user->photo_path, 'w' => 60, 'h' => 60, 'fit' => 'crop']) : null,
                 'deleted_at' => $user->deleted_at,
             ],
@@ -86,11 +98,11 @@ class UsersController extends Controller
             'last_name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable'],
-            'owner' => ['required', 'boolean'],
+            'cell_no' => ['required', 'digits:10'],
             'photo' => ['nullable', 'image'],
         ]);
 
-        $user->update(Request::only('first_name', 'last_name', 'email', 'owner'));
+        $user->update(Request::only('first_name', 'last_name', 'email', 'cell_no'));
 
         if (Request::file('photo')) {
             $user->update(['photo_path' => Request::file('photo')->store('users')]);

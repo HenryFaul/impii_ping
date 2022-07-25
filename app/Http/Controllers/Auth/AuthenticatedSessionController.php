@@ -11,6 +11,13 @@ use Inertia\Inertia;
 
 class AuthenticatedSessionController extends Controller
 {
+
+    public function register()
+    {
+        return Inertia::render('Auth/Register');
+    }
+
+
     /**
      * Display the login view.
      *

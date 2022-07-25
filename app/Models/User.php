@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +20,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+
+        'first_name',
+        'last_name',
+        'cell_no',
         'email',
+        'primary_role',
         'password',
+        'photo_path'
     ];
 
     /**
@@ -53,6 +59,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Account::class);
     }
+
+    public function agentdetail()
+    {
+        return $this->hasOne(AgentDetail::class);
+    }
+
 
     public function getNameAttribute()
     {
