@@ -16,8 +16,8 @@ class CreatePaymentHistoriesTable extends Migration
 
         Schema::create('payment_histories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('security_id')->unsigned();
-            $table->foreign('security_id')->references('id')->on('security_details')->onDelete('cascade');
+            $table->bigInteger('detail_id')->unsigned();
+            $table->foreign('detail_id')->references('id')->on('security_details')->onDelete('cascade');
             $table->string('reference', 50);
             $table->string('status', 50);
             $table->string('type', 50);

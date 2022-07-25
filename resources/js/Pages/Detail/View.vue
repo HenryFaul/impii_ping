@@ -8,7 +8,7 @@
       <div class="flex flex-wrap -mb-8 -mr-6 p-8">
 
 
-        <div class="mt-4 w-2/3 mt-3 mb-1">
+        <div class="mt-4 w-full mt-3 mb-1">
 
           <div class="text-xl mb-2 font-bold">Security detail status:
 

@@ -210,7 +210,7 @@
               <h1 class="mb-8 text-lg font-bold">
                 Protection date & times
 
-                <div class="pb-8 pr-6 w-full lg:w-1/2 mt-2">
+                <div class="pb-2 pr-6 w-full lg:w-1/2 mt-1">
                   <label for="start_date">Start Date</label>
                   <datepicker id="start_date"  v-model="form.start_date"></datepicker>
                   <div class="text-xs text-info flex flex-nowrap mt-1">Actual start date & time of your protection.
@@ -218,7 +218,7 @@
                   </div>
                 </div>
 
-                <div class="pb-8 pr-6 w-full lg:w-1/2 mt-2">
+                <div class="pb-2 pr-6 w-full lg:w-1/2 mt-1">
                   <label for="start_date">End Date</label>
                   <datepicker id="end_date"  v-model="form.end_date"></datepicker>
                   <div class="text-xs flex flex-nowrap mt-1">Planned end date & time of your protection (may vary).
@@ -463,6 +463,19 @@ export default {
 
     }
   },
+  beforeMount(){
+    const startDate = new Date();
+    const endDate = new Date();
+
+    endDate.setHours(endDate.getHours() + 2);
+
+    this.form.start_date=startDate;
+    this.form.end_date=endDate;
+  },
+  onMounted(){
+
+  },
+
   methods: {
     store() {
 
