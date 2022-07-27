@@ -14,13 +14,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use function PHPUnit\Framework\isEmpty;
 
+
 class PaymentController extends Controller
 {
 
     public function depositPayment(PaymentProcessor $payfast, Request $request)
     {
         //deposit const
-        $dep_amnt = 1000;
+        $dep_amnt = env('DETAIL_DEP', '100');
 
         //amnt of security details to be used in unique payment ref
         $max_id = SecurityDetail::count() + 1;
@@ -64,7 +65,7 @@ class PaymentController extends Controller
         $deposit_reference = "dep_" . $max_id;
         $final_reference = "final_" . $max_id;
         $currency = 'ZAR';
-        $payment_type = 'EFF';
+        $payment_type = 'EFT';
         $security_type_id = $request->get('security_type_id');
         $client_briefing = $request->get('client_briefing');
         $address = $request->get('address');
@@ -89,7 +90,7 @@ class PaymentController extends Controller
         // Make security detail
         $securityDetail = SecurityDetail::create([
             'client_id' => $user_id,
-            'security_type_id' => 1,
+            'security_type_id' => $security_type_id,
             'franchise_id' => $franchise_id,
             'client_briefing' => $client_briefing,
             'address' => $address,

@@ -25,12 +25,12 @@
               <div>
                 <select-input v-model="form.protection_type" :error="form.protection_type.country"
                               class="pb-8 pr-6 w-full lg:w-1/2" label="Protection Type">
-                  <option value="private">Personal Protection</option>
-                  <option value="cpo">CPO Protection</option>
+                  <option value="1">Personal Protection</option>
+                  <option value="2">CPO Protection</option>
                 </select-input>
               </div>
 
-              <div v-if="form.protection_type=='private'" class="p2 m-2 mb-10">
+              <div v-if="form.protection_type==='1'" class="p2 m-2 mb-10">
                 <div class="flex justify-center">
                   <div class="block rounded-lg shadow-lg bg-coolGray-100  max-w-sm text-center">
                     <div class="py-3 px-6 border-b border-gray-300">
@@ -107,7 +107,7 @@
                 </div>
               </div>
 
-              <div v-if="form.protection_type=='cpo'" class="p2 m-2 mb-10">
+              <div v-if="form.protection_type==='2'" class="p2 m-2 mb-10">
                 <div class="flex justify-center">
                   <div class="block rounded-lg shadow-lg bg-coolGray-100  max-w-sm text-center">
                     <div class="py-3 px-6 border-b border-gray-300">
@@ -355,23 +355,22 @@
                   To finalise your security detail you need to pay a R100 deposit via PayFast.
                   </div>
 
-                  {{pay_form}}
 
                   <form id="payfast-pay-form" ref="payfast_pay_form" action="https://www.payfast.co.za/eng/process" method="post">
 
-                    <text-input v-model="pay_form.merchant_id" name="merchant_id"/>
-                    <text-input v-model="pay_form.merchant_key" name="merchant_key" />
-                    <text-input v-model="pay_form.return_url" name="return_url" />
-                    <text-input v-model="pay_form.cancel_url" name="cancel_url"/>
-                    <text-input v-model="pay_form.notify_url" name="notify_url" />
-                    <text-input v-model="pay_form.name_first" name="name_first" />
-                    <text-input v-model="pay_form.name_last" name="name_last" />
-                    <text-input v-model="pay_form.email_address" name="email_address"/>
-                    <text-input v-model="pay_form.m_payment_id" name="m_payment_id" />
-                    <text-input v-model="pay_form.amount" name="amount" />
-                    <text-input v-model="pay_form.item_name" name="item_name" />
-                    <text-input v-model="pay_form.item_description" name="item_description" />
-                    <text-input v-model="pay_form.email_confirmation" name="email_confirmation" />
+                    <text-input v-model="pay_form.merchant_id" name="merchant_id" type="hidden"/>
+                    <text-input v-model="pay_form.merchant_key" name="merchant_key" type="hidden" />
+                    <text-input v-model="pay_form.return_url" name="return_url" type="hidden" />
+                    <text-input v-model="pay_form.cancel_url" name="cancel_url" type="hidden"/>
+                    <text-input v-model="pay_form.notify_url" name="notify_url" type="hidden" />
+                    <text-input v-model="pay_form.name_first" name="name_first" type="hidden" />
+                    <text-input v-model="pay_form.name_last" name="name_last" type="hidden" />
+                    <text-input v-model="pay_form.email_address" name="email_address" type="hidden"/>
+                    <text-input v-model="pay_form.m_payment_id" name="m_payment_id" type="hidden" />
+                    <text-input v-model="pay_form.amount" name="amount" type="hidden" />
+                    <text-input v-model="pay_form.item_name" name="item_name" type="hidden" />
+                    <text-input v-model="pay_form.item_description" name="item_description" type="hidden"/>
+                    <text-input v-model="pay_form.email_confirmation" name="email_confirmation" type="hidden" />
 
                     <loading-button  class="btn-indigo" :loading="dep_but_loading" @click="doSubmit">Pay deposit (Payfast)</loading-button>
                   </form>
@@ -434,23 +433,23 @@ export default {
         email: null,
         phone: null,
         address: null,
-        city: "pe",
+        city: 'pe',
         client_briefing:null,
         region: null,
-        protection_type: 'private',
+        protection_type: '1',
         postal_code: null,
         voucher: null,
         start_date: null,
         end_date: null
       }),
       form_step: 0,
-      voucher_key: "",
+      voucher_key: '',
       db_voucher: null,
       voucher_loading: false,
       show_voucher_success: false,
       show_voucher_error: false,
-      start_nicely:"",
-      end_nicely:"",
+      start_nicely:'',
+      end_nicely:'',
       security_hours: 0,
       security_rate: 200,
       estimated_total: 0,
@@ -478,6 +477,9 @@ export default {
   },
 
   methods: {
+    rate(){
+
+    },
     store() {
 
     },
@@ -591,11 +593,12 @@ export default {
       this.start_nicely = start.toLocaleString();
       this.end_nicely = end.toLocaleString();
 
-      if (start != null && end != null) {
+      if (this.form.start_date != null && this.form.end_date != null) {
         this.security_hours = (Math.abs(end - start) / 36e5).toFixed(2);
 
+        this.form.protection_type==='1'?this.security_rate=200:this.security_rate=500;
+
         //set security type
-        this.form.protection_type === 'private' ? this.security_rate = 200 : this.security_rate = 500;
         this.estimated_total = (this.security_hours * this.security_rate).toFixed(2);
         this.final_total = this.estimated_total;
         //check if valid voucher
@@ -622,14 +625,14 @@ export default {
 
     makeDetail(){
       return {
-        security_type_id:1,
+        security_type_id:this.form.protection_type,
         client_briefing:this.form.client_briefing,
         address:this.form.address,
         city:this.form.city,
         start_date:this.form.start_date,
         planned_end_date:this.form.end_date,
         hourly_rate:this.security_rate,
-        voucher_id:1,
+        voucher_id:this.voucher_id,
         voucher_max:this.voucher_value,
       }
     },
