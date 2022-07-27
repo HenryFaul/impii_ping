@@ -41,7 +41,7 @@
                 <Link class="group flex items-center py-3" :href="`/detail/${detail.id}/view`" >
                   <icon name="shield-solid" class="mr-2 w-6 h-6" />
                   <div class="underline">  {{detail.id}}) [{{detail.city}}] {{detail.start_date}}
-                    <span class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded-full">pending</span>
+                    <span class="text-xs m-2 inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded-full">pending</span>
 
                   </div>
                 </Link>
