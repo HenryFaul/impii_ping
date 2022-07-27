@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmergencyController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\PaymentController;
@@ -75,6 +76,10 @@ Route::get('/voucher/{voucher_key}', [VoucherController::class, 'voucher'])
 Route::get('/sos', function () {
     return Inertia::render('Users/Sos');
 })->middleware(['auth'])->name('sos');
+
+Route::get('/help', [EmergencyController::class, 'location'])
+    ->name('help')
+    ->middleware('auth');
 
 //Admin
 

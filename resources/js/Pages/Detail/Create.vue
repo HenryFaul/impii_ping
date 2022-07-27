@@ -574,7 +574,6 @@ export default {
           this.doSecurityTimeRate();
         }
 
-
       }).catch(error => {
         // Do something
         this.show_voucher_error = true;
