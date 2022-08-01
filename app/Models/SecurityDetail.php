@@ -33,11 +33,13 @@ class SecurityDetail extends Model
         'calc_total_charge',
         'calc_total_hours',
         'final_charge',
+        'tip_charge',
         'final_received',
         'agent_accepted',
         'detail_started',
         'detail_ended',
         'detail_closed',
+        'detail_status'
 
     ];
 

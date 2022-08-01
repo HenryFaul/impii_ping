@@ -11,7 +11,6 @@
         <div class="mt-4 w-full mt-3 mb-1">
 
           <div class="text-xl mb-2 font-bold">Status:
-
             <span class="inline-block py-1.5 mt-2 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded">{{this.detail_status}}</span>
           </div>
           <div class="max-w-3xl w-full bg-white rounded-md shadow overflow-hidden mt-4 mr-2 mb-4 p-4">
@@ -24,8 +23,13 @@
                 <td class="p-2">Protection type:</td>
                 <td class="p-2">
 
-                  {{detail.security_type_id}}
+                  <div v-if="detail.security_type_id ===1">
+                    Personal Protection
+                  </div>
 
+                  <div v-else>
+                    CPO Protection
+                  </div>
 
                 </td>
               </tr>
@@ -104,6 +108,14 @@
 
                   <span v-else class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded-full">pending</span>
 
+
+                </td>
+              </tr>
+              <tr class="row">
+                <td class="p-2">Add tip:</td>
+                <td class="p-2">
+
+                  R {{detail.charge_tip}}
 
                 </td>
               </tr>
@@ -242,7 +254,7 @@ export default {
     },},
 
   beforeMount(){
-    this.doStatus();
+
   },
 }
 </script>

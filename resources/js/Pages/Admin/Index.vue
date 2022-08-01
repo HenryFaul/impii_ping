@@ -20,9 +20,9 @@
         </div>
 
 
-        <div class="mt-2 mb-2">
-          <div class="text-lg mb-2">Security History [admin]</div>
-          <div class="flex justify-center">
+        <div class="mt-2 mb-2 w-full">
+          <div class="text-lg w-full mb-2">Security History [admin]</div>
+          <div class="flex w-full justify-center">
             <ul class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
 
               <li class="px-6 py-2 border-b border-gray-200 w-full" v-for="detail in security_details" :key="detail.id">

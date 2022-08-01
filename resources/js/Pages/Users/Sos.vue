@@ -69,10 +69,27 @@ export default {
     async location() {
 
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getPosition);
-      }
-      function getPosition(position) {
-        console.log(position.coords.latitude, position.coords.longitude);
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            //do work work here
+            /*
+            $.post("url-here", {
+                long: position.coords.longitude,
+                lat: position.coords.latitude
+            }).done(function (response) {
+                alert(responsse)
+            });
+            */
+          },
+          function (error) {
+            alert(error.message);
+          }, {
+            enableHighAccuracy: true
+            , timeout: 5000
+          }
+        );
+      } else {
+        alert("Geolocation is not supported by this browser.");
       }
 
     },

@@ -60,6 +60,7 @@ class CreateSecurityDetailsTable extends Migration
             $table->double('calc_total_hours', 8, 2)->default(0);
             $table->double('calc_total_charge', 8, 2)->default(0);
             $table->double('final_charge', 8, 2)->default(0);
+            $table->double('tip_charge', 8, 2)->default(0);
             $table->double('final_received', 8, 2)->default(0);
 
             //state
@@ -68,6 +69,10 @@ class CreateSecurityDetailsTable extends Migration
             $table->boolean('detail_started')->default(0);
             $table->boolean('detail_ended')->default(0);
             $table->boolean('detail_closed')->default(0);
+
+            //status
+
+            $table->string('detail_status', 50)->default("Pending");
 
 
             $table->timestamps();

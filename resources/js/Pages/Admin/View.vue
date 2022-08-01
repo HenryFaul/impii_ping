@@ -12,7 +12,7 @@
 
           <div class="text-xl mb-2 font-bold">Security detail status:
 
-            <span class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded">{{this.detail_status}}</span>
+            <span class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded">{{detail.status}}</span>
           </div>
           <div class="max-w-3xl w-full bg-white rounded-md shadow overflow-hidden mt-4 mr-2 mb-4 p-4">
 
