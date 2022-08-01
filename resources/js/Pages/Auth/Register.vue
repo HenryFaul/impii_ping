@@ -4,6 +4,18 @@
     <div class="w-full max-w-md">
 <!--      <logo  class="block mx-auto w-full max-w-xs fill-white" height="50"  />-->
       <logo class="block mx-auto max-w-xs fill-white" width="100" height="10" />
+      <div v-if="true" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+        <Link v-if="user" href="/" class="text-sm text-gray-700 underline">
+          Home
+        </Link>
+
+        <template v-else>
+          <Link href="/login" class="text-sm text-gray-700 underline">
+            Log in
+          </Link>
+        </template>
+      </div>
+
       <form class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden" @submit.prevent="login">
         <div class="px-10 py-12">
           <h1 class="text-center text-3xl font-bold">Register</h1>
@@ -35,6 +47,11 @@ import { Head } from '@inertiajs/inertia-vue3'
 import Logo from '@/Shared/Logo'
 import TextInput from '@/Shared/TextInput'
 import LoadingButton from '@/Shared/LoadingButton'
+import {computed} from 'vue'
+import {usePage} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/inertia-vue3'
+
+
 
 export default {
   components: {
@@ -42,7 +59,9 @@ export default {
     LoadingButton,
     Logo,
     TextInput,
+    Link
   },
+
   data() {
     return {
       form: this.$inertia.form({
@@ -55,6 +74,10 @@ export default {
         terms: false,
       }),
     }
+  },
+  setup() {
+    const user = computed(() => usePage().props.value.auth.user)
+    return {user}
   },
   methods: {
     login() {

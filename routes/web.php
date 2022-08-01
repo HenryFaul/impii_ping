@@ -128,6 +128,10 @@ Route::put('agent/{user}/update', [AgentController::class, 'update'])
 
 // Auth
 
+Route::get('/landing', function () {
+    return Inertia::render('Auth/Landing');
+})->middleware(['guest'])->name('landing');
+
 Route::get('register', [RegisteredUserController::class, 'create'])
     ->name('register')
     ->middleware('guest');
