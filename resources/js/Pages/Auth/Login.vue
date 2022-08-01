@@ -30,16 +30,14 @@
             <span class="text-sm">Remember Me</span>
           </label>
         </div>
+
         <div class="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
 
-          <Link v-if="true" href="/register" class="btn-indigo ml-2 mr-2">
-            Register
-          </Link>
+
+          <Link v-if="true" href="/register" class="btn-indigo ml-2 mr-2">Register</Link>
           <loading-button :loading="form.processing" class="btn-impii ml-auto" type="submit">Login</loading-button>
 
-          <Link v-if="true" href="/register" class="underline ml-2 text-sm text-gray-600 hover:text-gray-900 w-full">
-            Forgot your password?
-          </Link>
+
         </div>
       </form>
     </div>

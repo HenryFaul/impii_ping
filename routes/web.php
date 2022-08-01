@@ -77,7 +77,11 @@ Route::get('/sos', function () {
     return Inertia::render('Users/Sos');
 })->middleware(['auth'])->name('sos');
 
-Route::get('/help', [EmergencyController::class, 'location'])
+/*Route::get('/help', [EmergencyController::class, 'location'])
+    ->name('help')
+    ->middleware('auth');*/
+
+Route::post('/help', [EmergencyController::class, 'store'])
     ->name('help')
     ->middleware('auth');
 
