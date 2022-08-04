@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 use function PHPUnit\Framework\isEmpty;
 
 
@@ -168,14 +169,36 @@ class PaymentController extends Controller
 
     }
 
-    public function finalPayment(PaymentProcessor $payfast, Request $request, SecurityDetail $securityDetail)
+    public function updateTip(Request $request)
     {
+        //get detail
+        $securityDetail=SecurityDetail::find($request->get('security_id'));
+
+        //set tip
+        $securityDetail->tip_charge=$request->get('tip_charge');
+        $securityDetail->final_charge=$securityDetail->final_charg+$request->get('tip_charge');
+        $securityDetail->save();
+        return Redirect::back()->with('success', 'Tip updated.');
+
+
+    }
+
+
+    public function finalPayment(PaymentProcessor $payfast, Request $request)
+    {
+
+        //get detail
+        $securityDetail=SecurityDetail::find($request->get('security_id'));
+
         // Get all data points
         $user = Auth::user();
         $user_id = Auth::id();
         $first_name = $user->first_name;
         $last_name = $user->last_name;
         $email = $user->email;
+
+        //set tip
+
 
         //if total charge is more than 0
         if ($securityDetail->final_charge > 0) {
@@ -199,11 +222,22 @@ class PaymentController extends Controller
             // $payfast->setEmailConfirmation();
             // $payfast->setConfirmationAddress(env('PAYFAST_CONFIRMATION_EMAIL'));
 
-            return ['result' => 'success', 'data' => $payfast->paymentForm('Pay Final')];
+            $form_data= ['result' => 'charge', 'data' => $payfast->paymentForm('Pay Final')];
+
+            return Inertia::render('Detail/View', [
+                'detail' => $securityDetail,
+                'form_data'=>$form_data
+            ]);
+
 
         }
 
-        return ['result' => 'no_charge', 'data' => 'none'];
+        $form_data= ['result' => 'initial', 'data' => null];
+
+        return Inertia::render('Detail/View', [
+            'detail' => $securityDetail,
+            'form_data'=>$form_data
+        ]);
 
     }
 

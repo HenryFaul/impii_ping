@@ -248,7 +248,13 @@
                     <td>Protection type:</td>
                     <td>
 
-                      {{ form.protection_type }}
+                      <div v-if="form.protection_type ===1">
+                        Personal Protection
+                      </div>
+                      <div v-else>
+                        CPO Protection
+                      </div>
+
                     </td>
                   </tr>
                   <tr>
@@ -356,7 +362,7 @@
                   </div>
 
 
-                  <form id="payfast-pay-form" ref="payfast_pay_form" action="https://www.payfast.co.za/eng/process" method="post">
+                  <form id="payfast-pay-form" ref="payfast_pay_form" onsubmit="{alert('Redirecting to Payfast..')}" action="https://www.payfast.co.za/eng/process" method="post">
 
                     <text-input v-model="pay_form.merchant_id" name="merchant_id" type="hidden"/>
                     <text-input v-model="pay_form.merchant_key" name="merchant_key" type="hidden" />
@@ -383,8 +389,7 @@
 
         <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
 
-          <loading-button :loading="false" type="button" @click="doPrev" class="btn-impii ml-2">Previous -
-          </loading-button>
+          <loading-button :loading="false" type="button" @click="doPrev" class="btn-impii ml-2">Previous -</loading-button>
           <loading-button :loading="false" type="button" @click="doNext" class="btn-impii ml-2">Next +</loading-button>
         </div>
       </form>
@@ -492,7 +497,7 @@ export default {
           this.form_step += 25;
           break;
         case 25:
-          if (this.form.address == null || this.form.client_briefing == null){
+          if (this.form.address == null || this.form.client_briefing == null || this.form.city != 'pe'){
             alert('You need to complete to continue')
             break
           }
@@ -670,12 +675,8 @@ export default {
       this.$inertia.visit('/');
     },
     async doSubmit(){
-
-
       await this.$refs.payfast_pay_form.$el.submit();
       this.dep_but_loading=true;
-
-
     }
 
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Head title="Dashboard"/>
-    <h1 class="mb-8 text-3xl font-bold">S.O.S</h1>
+    <h1 class="mb-8 text-3xl font-bold">SOS</h1>
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
 
       <div class="flex flex-wrap -mb-8 -mr-6 p-8">
@@ -27,7 +27,7 @@
 
             </div>
             <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
-              <loading-button :loading="form.processing" class="btn-indigo" @click="location" type="button">Send S.O.S
+              <loading-button :loading="form.processing" class="btn-emergency" @click="location" type="button">Send SOS
               </loading-button>
             </div>
           </form>

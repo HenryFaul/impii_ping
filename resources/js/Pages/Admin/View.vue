@@ -12,7 +12,7 @@
 
           <div class="text-xl mb-2 font-bold">Security detail status:
 
-            <span class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded">{{detail.status}}</span>
+            <span class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded">{{detail.detail_status }}</span>
           </div>
           <div class="max-w-3xl w-full bg-white rounded-md shadow overflow-hidden mt-4 mr-2 mb-4 p-4">
 
@@ -24,6 +24,14 @@
               <tr class="row">
                 <td class="p-2">Protection type:</td>
                 <td class="p-2">
+
+                  <div v-if="detail.security_type_id ===1">
+                    Personal Protection
+                  </div>
+
+                  <div v-else>
+                    CPO Protection
+                  </div>
 
                 </td>
               </tr>
@@ -39,6 +47,31 @@
 
                 </td>
               </tr>
+              <tr class="row">
+                <td class="p-2">Client :</td>
+                <td class="p-2">
+                  {{user.first_name}} {{user.last_name}}
+
+                </td>
+              </tr>
+
+              <tr class="row">
+                <td class="p-2">Client email :</td>
+                <td class="p-2">
+                  {{user.email}}
+
+                </td>
+              </tr>
+
+              <tr class="row">
+                <td class="p-2">Client cell :</td>
+                <td class="p-2">
+                  {{user.cell_no}}
+
+                </td>
+              </tr>
+
+
               <tr class="row">
                 <td class="p-2">Address:</td>
                 <td class="p-2">
@@ -230,7 +263,8 @@ export default {
   layout: Layout,
   props: {
     detail: Object,
-    agent_users: Array
+    agent_users: Array,
+    user:Object
 
   },
   data() {

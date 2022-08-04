@@ -46,6 +46,14 @@ Route::post('/pay', [PaymentController::class, 'depositPayment'])
     ->name('payment')
     ->middleware('auth');
 
+Route::post('/pay/update/tip', [PaymentController::class, 'updateTip'])
+    ->name('payment.tip.update')
+    ->middleware('auth');
+
+Route::get('/pay/final', [PaymentController::class, 'finalPayment'])
+    ->name('payment.final')
+    ->middleware('auth');
+
 Route::get('/pay/success', function () {
     return Inertia::render('Payments/Success');
 })->middleware(['auth'])->name('payment.success');

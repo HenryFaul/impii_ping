@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaymentHistory;
 use App\Models\SecurityDetail;
 use App\Models\User;
 use App\Models\Voucher;
+use Billow\Contracts\PaymentProcessor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
@@ -15,12 +18,11 @@ class SecurityDetailController extends Controller
 {
     //
 
-    public function index(SecurityDetail $detail)
+    public function index(PaymentProcessor $payfast, Request $request, SecurityDetail $detail)
     {
 
-        //  dd($detail);
 
-        //  $this->authorize('edit-user',$user);
+       $form_data= ['result' => 'initial', 'data' => null];
 
         return Inertia::render('Detail/View', [
             'detail' => $detail,
@@ -33,9 +35,13 @@ class SecurityDetailController extends Controller
 
         $agent_users = User::role('agent')->with('agentdetail')->get();
 
+        $user = User::find($detail->client_id);
+
+
         return Inertia::render('Admin/View', [
             'detail' => $detail,
-            'agent_users' => $agent_users
+            'agent_users' => $agent_users,
+            'user'=>$user
         ]);
     }
 

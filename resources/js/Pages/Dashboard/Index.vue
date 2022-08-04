@@ -49,7 +49,7 @@
                   <icon name="shield-solid" class="mr-2 w-6 h-6"/>
                   <div class="underline"> {{ detail.id }}) [{{ detail.city }}] {{ detail.start_date }}
                     <span
-                      class="text-xs m-2 inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded-full">pending</span>
+                      class="text-xs m-2 inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded-full">{{detail.detail_status }}</span>
 
                   </div>
                 </Link>
@@ -75,18 +75,19 @@ import Icon from '@/Shared/Icon'
 
 
 export default {
-  setup() {
-    const user = computed(() => usePage().props.value.auth.user)
-    return {user}
-  },
   components: {
     Head,
     Link,
     Icon
   },
+  layout: Layout,
   props: {
 
     security_details: Array,
+  },
+  setup() {
+    const user = computed(() => usePage().props.value.auth.user)
+    return {user}
   },
   methods: {
     isUrl(...urls) {
@@ -97,6 +98,5 @@ export default {
       return urls.filter((url) => currentUrl.startsWith(url)).length
     },
   },
-  layout: Layout,
 }
 </script>

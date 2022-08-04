@@ -4,7 +4,7 @@
     <div class="mb-4">
       <Link class="group flex items-center py-3" href="/sos">
         <icon name="bell-solid" class="mr-2 w-6 h-6" :class="isUrl('sos') ? 'fill-red-600' : 'fill-white group-hover:fill-red-600'" />
-        <div :class="isUrl('sos') ? 'text-red-600 text-lg font-bold' : 'text-white text-lg font-bold group-hover:text-red-600'">S.O.S</div>
+        <div :class="isUrl('sos') ? 'text-red-600 text-lg font-bold' : 'text-white text-lg font-bold group-hover:text-red-600'">SOS</div>
       </Link>
     </div>
     <div class="mb-4">
