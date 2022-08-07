@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Head title="Create Organization"/>
+    <Head title="Create Detail"/>
     <h1 class="mb-8 text-3xl font-bold">
       New security detail
     </h1>
@@ -206,23 +206,23 @@
               </div>
 
             </div>
-            <div v-if="form_step==50" id="s3">
-              <h1 class="mb-8 text-lg font-bold">
-                Protection date & times
+            <div class="h-auto" v-if="form_step==50" id="s3">
+              <h1 class="mb-8 text-lg font-bold">Protection date & times  </h1>
 
-                <div class="pb-2 pr-6 w-full lg:w-1/2 mt-1">
-                  <label for="start_date">Start Date</label>
-                  <datepicker id="start_date"  v-model="form.start_date"></datepicker>
+
+                <div class="pb-2 pr-6 w-full mt-2 h-48 lg:w-1/2 mt-1">
+                  <label  for="start_date">Start Date</label>
+                  <datepicker class="mt-3 mb-3" id="start_date"  v-model="form.start_date"></datepicker>
                   <div class="text-xs text-info flex flex-nowrap mt-1">Actual start date & time of your protection.
-                    Click on clock icon to set the time
+                    Click on clock icon to set the time.
                   </div>
                 </div>
 
-                <div class="pb-2 pr-6 w-full lg:w-1/2 mt-1">
+                <div class="pb-2 pr-6 w-full mt-2 h-48 lg:w-1/2 mt-1">
                   <label for="start_date">End Date</label>
-                  <datepicker id="end_date"  v-model="form.end_date"></datepicker>
+                  <datepicker class="mt-3 mb-3" id="end_date"  v-model="form.end_date"></datepicker>
                   <div class="text-xs flex flex-nowrap mt-1">Planned end date & time of your protection (may vary).
-                    Click on clock icon to set the time
+                    Click on clock icon to set the time.
                   </div>
                 </div>
 
@@ -232,7 +232,7 @@
                 </div>
 
 
-              </h1>
+
             </div>
             <div v-if="form_step==75" id="s4">
 
@@ -404,11 +404,12 @@ import LoadingButton from '@/Shared/LoadingButton'
 import SelectInput from '@/Shared/SelectInput'
 import Icon from '@/Shared/Icon'
 import TextInput from '@/Shared/TextInput'
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
-import TextareaInput from "@/Shared/TextareaInput";
-import axios from "axios";
-import { Link } from '@inertiajs/inertia-vue3'
+import Datepicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
+import TextareaInput from '@/Shared/TextareaInput'
+import axios from 'axios'
+import DatePickNew from 'vue-date-pick'
+import 'vue-date-pick/dist/vueDatePick.css'
 
 
 export default {
@@ -423,7 +424,7 @@ export default {
     TextInput,
     Datepicker,
     TextareaInput,
-    Link,
+    DatePickNew
 
 
 
@@ -447,6 +448,7 @@ export default {
         start_date: null,
         end_date: null
       }),
+      test_date:'2019-01-01',
       form_step: 0,
       voucher_key: '',
       db_voucher: null,

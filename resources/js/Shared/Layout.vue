@@ -94,7 +94,7 @@ export default {
     async install() {
       this.deferredPrompt.prompt();
     },
-  }
+  },
 
 
 }

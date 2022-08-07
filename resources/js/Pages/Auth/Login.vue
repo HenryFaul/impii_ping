@@ -9,9 +9,7 @@
         <Link v-if="user" href="/" class="text-sm text-gray-700 underline">
           Home
         </Link>
-
         <template v-else>
-
           <Link v-if="true" href="/register" class="ml-4 text-sm text-gray-700 underline">
             Register
           </Link>
