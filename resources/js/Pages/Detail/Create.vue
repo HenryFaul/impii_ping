@@ -348,7 +348,7 @@
                  Accept Terms
                 </loading-button>
 
-                <Link class="group flex items-center py-3 italic underline" target="_blank" href="/client">** Terms & conditions</Link>
+                <a href="https://impii.co.za/terms-conditions/" target="_blank">** Terms & Conditions</a>
 
                 <div v-if="show_no_dep_message" class="bg-yellow-100 rounded-lg py-5 px-6 mb-4 text-base text-yellow-700 mb-3" role="alert">
                   Seems that you don't have to pay a deposit. Awesome! Accept the terms & view the detail in your dashboard.

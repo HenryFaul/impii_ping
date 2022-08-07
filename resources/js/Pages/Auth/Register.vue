@@ -29,8 +29,11 @@
           <text-input v-model="form.password" :error="form.errors.password" class="mt-6" label="Password" type="password" />
 
           <label class="flex items-center mt-6 select-none" for="remember">
-            <input id="remember" v-model="form.remember" class="mr-1" type="checkbox" />
-            <span class="text-sm">Terms & Conditions</span>
+            <input id="remember" v-model="form.terms" :error="form.errors.terms"  class="mr-1" type="checkbox" />
+            <span class="text-sm underline">
+                  <a href="https://impii.co.za/terms-conditions/" target="_blank">Terms & Conditions</a>
+            </span>
+
           </label>
         </div>
         <div class="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
