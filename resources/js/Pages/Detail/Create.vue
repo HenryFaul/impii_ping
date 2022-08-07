@@ -13,6 +13,7 @@
         </div>
       </div>
 
+
       <form @submit.prevent="store">
         <div class="flex flex-wrap -mb-8 -mr-6 p-3">
           <div class="w-full p2 m-2">
@@ -207,12 +208,14 @@
 
             </div>
             <div class="h-auto" v-if="form_step==50" id="s3">
-              <h1 class="mb-8 text-lg font-bold">Protection date & times  </h1>
+              <h1  class="mb-8 text-lg font-bold">Protection date & times  </h1>
 
 
-                <div class="pb-2 pr-6 w-full mt-2 h-48 lg:w-1/2 mt-1">
+<!--              <datepicker v-model="form.start_date" id="start_date" :inline="true" class="mt-3 mb-3"></datepicker>-->
+
+<!--               <div class="pb-2 pr-6 w-full mt-2 h-48 lg:w-1/2 mt-1">
                   <label  for="start_date">Start Date</label>
-                  <datepicker class="mt-3 mb-3" id="start_date"  v-model="form.start_date"></datepicker>
+                  <datepicker class="mt-3 mb-3" id="start_date" :inline="true"  v-model="form.start_date"></datepicker>
                   <div class="text-xs text-info flex flex-nowrap mt-1">Actual start date & time of your protection.
                     Click on clock icon to set the time.
                   </div>
@@ -220,17 +223,28 @@
 
                 <div class="pb-2 pr-6 w-full mt-2 h-48 lg:w-1/2 mt-1">
                   <label for="start_date">End Date</label>
-                  <datepicker class="mt-3 mb-3" id="end_date"  v-model="form.end_date"></datepicker>
+                  <datepicker class="mt-3 mb-3" id="end_date" :inline="true"  v-model="form.end_date"></datepicker>
                   <div class="text-xs flex flex-nowrap mt-1">Planned end date & time of your protection (may vary).
                     Click on clock icon to set the time.
                   </div>
+                </div>-->
+
+              <div class="h-auto w-full mt-3 mb-4">
+                <div class="text-xl mb-2">Actual start:</div>
+                <datepicker class="mt-3 mb-3" id="start_date" :inline="true"  v-model="form.start_date"></datepicker>
+                <div class="text-xs flex  mt-1">
+                  Actual start date & time of your protection.
+                  Click on clock icon to set the time.
                 </div>
+              </div>
 
-                <div class="pb-8 pr-6 w-full lg:w-1/2 mt-2">
-
-
+              <div class="h-auto w-full mt-3 mb-4">
+                <div class="text-xl mb-2">Planned end:</div>
+                <datepicker class="mt-3 mb-3" id="end_date" :inline="true"  v-model="form.end_date"></datepicker>
+                <div class="text-xs flex  mt-1">Planned end date & time of your protection (may vary).
+                  Click on clock icon to set the time.
                 </div>
-
+              </div>
 
 
             </div>
@@ -404,27 +418,23 @@ import LoadingButton from '@/Shared/LoadingButton'
 import SelectInput from '@/Shared/SelectInput'
 import Icon from '@/Shared/Icon'
 import TextInput from '@/Shared/TextInput'
-import Datepicker from '@vuepic/vue-datepicker'
-import '@vuepic/vue-datepicker/dist/main.css'
 import TextareaInput from '@/Shared/TextareaInput'
 import axios from 'axios'
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 
 export default {
 
 
   components: {
-
     Head,
     LoadingButton,
     SelectInput,
     Icon,
     TextInput,
-    Datepicker,
     TextareaInput,
-
-
-
+    Datepicker
   },
 
   layout: Layout,

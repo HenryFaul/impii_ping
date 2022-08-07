@@ -27,6 +27,7 @@
         "@vue/cli-plugin-pwa": "^5.0.8",
         "@vue/cli-service": "^5.0.8",
         "@vue/server-renderer": "^3.2.27",
+        "@vuepic/vue-datepicker": "^3.4.1",
         "ajv": "^8.11.0",
         "autoprefixer": "^10.4.8",
         "axios": "^0.27.2",
