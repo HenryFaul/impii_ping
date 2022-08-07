@@ -408,8 +408,6 @@ import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import TextareaInput from '@/Shared/TextareaInput'
 import axios from 'axios'
-import DatePickNew from 'vue-date-pick'
-import 'vue-date-pick/dist/vueDatePick.css'
 
 
 export default {
@@ -424,7 +422,6 @@ export default {
     TextInput,
     Datepicker,
     TextareaInput,
-    DatePickNew
 
 
 
