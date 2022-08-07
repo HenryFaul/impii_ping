@@ -8,25 +8,21 @@
 
 
         <div class="text-lg mb-2 w-full">Admin dashboard</div>
-        <div class="flex space-x-2 justify-center">
-          <div>
+        <div class="flex space-x-2 justify-center w-full">
+          <div class="w-full">
 
             <button type="button"
                     class="inline-block ml-2 mt-1  px-6 py-2 border-2 border-green-500 text-green-500 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-              <Link href="/detail/new">User Management</Link>
+              <Link href="/users">User Management</Link>
             </button>
 
-            <button type="button"
-                    class="inline-block ml-2 mt-1    px-6 py-2 border-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-              <Link :href="`/users/${user.id}/edit`">Detail Management</Link>
-            </button>
             <button type="button"
                     class="inline-block ml-2 mt-1    px-6 py-2 border-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
               <Link :href="`/users/${user.id}/edit`">Voucher Management</Link>
             </button>
             <button type="button"
                     class="inline-block ml-2 mt-1 px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-              <Link href="/sos">S.O.S Management</Link>
+              <Link href="/emergencies">SOS Management</Link>
             </button>
           </div>
         </div>

@@ -19,7 +19,7 @@ class CreateVouchersTable extends Migration
             $table->integer('uses')->default(0);
             $table->boolean('active')->default(0);
             $table->string('currency', 10)->default('ZAR');
-            $table->string('voucher_key', 10);
+            $table->string('voucher_key', 50);
             $table->unique(['voucher_key']);
             $table->decimal('max_amount', $precision = 8, $scale = 2);
             $table->string('description', 50)->nullable();

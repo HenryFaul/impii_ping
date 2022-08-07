@@ -654,7 +654,8 @@ export default {
 
             this.show_no_dep_message=true;
             alert('No deposit payable');
-            this.goToHome();
+            this.$inertia.visit('/detail/'+response.data.sec_id+'/view');
+
           }else{
             this.pay_form=response.data.data;
             this.show_payment_message=true;
@@ -664,7 +665,6 @@ export default {
         // Do something
 
         alert("Whoops it seems something broke. Request could not be made. Contact support.");
-        this.$inertia.visit('/');
 
       }).finally(res => {
         //console.log(res);

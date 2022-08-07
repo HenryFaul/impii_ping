@@ -15,8 +15,6 @@ class CreateEmergenciesTable extends Migration
     {
 
 
-
-
         Schema::create('emergencies', function (Blueprint $table) {
 
             $table->id();

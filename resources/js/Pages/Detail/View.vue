@@ -38,7 +38,7 @@
                 <td class="p-2">
                   <div v-if="detail.agent_accepted">
 
-                    <Link class="group flex items-center py-3" :href="`/agent/${detail.id}/profile`" >
+                    <Link class="group flex items-center py-3" :href="`/agent/${detail.agent_id}/profile`" >
                       <div >
                         <span class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii underline text-white rounded-full">View agent</span>
                       </div>

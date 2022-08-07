@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewAgentMarkdown;
+use App\Mail\NewDetailMarkdown;
 use App\Models\PaymentHistory;
 use App\Models\SecurityDetail;
 use App\Models\User;
@@ -10,6 +12,7 @@ use Billow\Contracts\PaymentProcessor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
@@ -50,7 +53,14 @@ class SecurityDetailController extends Controller
 
         //if agent id
         if ($request->get('agent_id')) {
+
             $detail->update(['agent_id' => $request->get('agent_id'), 'agent_accepted' => 1]);
+            $user = User::find($detail->client_id);
+            $agent_user = User::role('agent')->with('agentdetail')->where('id','=',$user)->get();
+            $mail= new NewAgentMarkdown($user,$detail,$agent_user);
+            Mail::to($user->email)->send($mail);
+
+
         }
 
         //if detail_started

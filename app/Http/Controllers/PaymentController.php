@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewDetailMarkdown;
+use App\Mail\NewRegistrationMarkdown;
 use App\Models\PaymentHistory;
 use App\Models\SecurityDetail;
 use App\Models\Voucher;
@@ -9,6 +11,7 @@ use Billow\Contracts\PaymentProcessor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -116,9 +119,10 @@ class PaymentController extends Controller
 
         if ($voucher_max > 0) {
             $voucher = Voucher::find($voucher_id);
-            $max_amount = $voucher->$max_amount;
+
 
             if (!isEmpty($voucher)) {
+                $max_amount = $voucher->max_amount;
 
                 if ($voucher->active == 1) {
                     //set actual max amount
@@ -140,7 +144,7 @@ class PaymentController extends Controller
         }
 
         //if total charge is more than the voucher
-        if ($calc_total_charge > $max_amount) {
+        if ($calc_total_charge > $voucher_max) {
 
             //create a payment history object
 
@@ -161,11 +165,17 @@ class PaymentController extends Controller
             // $payfast->setEmailConfirmation();
             // $payfast->setConfirmationAddress(env('PAYFAST_CONFIRMATION_EMAIL'));
 
-            return ['result' => 'success', 'data' => $payfast->paymentForm('Pay Deposit')];
+            $mail= new NewDetailMarkdown($user,$securityDetail);
+            Mail::to($email)->send($mail);
+
+            return ['result' => 'success', 'data' => $payfast->paymentForm('Pay Deposit'),'sec_id'=>$securityDetail->id];
 
         }
 
-        return ['result' => 'no_dep', 'data' => 'none'];
+        $mail= new NewDetailMarkdown($user,$securityDetail);
+        Mail::to($email)->send($mail);
+
+        return ['result' => 'no_dep', 'data' => 'none','sec_id'=>$securityDetail->id];
 
     }
 

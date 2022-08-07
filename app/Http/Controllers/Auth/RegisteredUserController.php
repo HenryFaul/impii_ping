@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewRegistrationMarkdown;
 use App\Models\User;
+use App\Models\Voucher;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
@@ -56,10 +59,26 @@ class RegisteredUserController extends Controller
 
         $user->assignRole(['name' => 'client']);
 
+
+        $voucher = Voucher::create([
+            'max_uses' => '1',
+            'active' => '1',
+            'currency' => 'ZAR',
+            'max_amount' => '400',
+            'description' => $user->first_name.' is awesome',
+            'voucher_key' => $user->email,
+        ]);
+
+
+        $mail= new NewRegistrationMarkdown($user,$voucher);
+        Mail::to($user->email)->send($mail);
+
         event(new Registered($user));
 
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+
 }

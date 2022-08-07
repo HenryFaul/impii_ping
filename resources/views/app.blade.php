@@ -3,6 +3,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Impii Connected Protection">
+    <meta name="keywords" content="Protection, Impii, Security">
+
+
+    <!--  Essential META Tags -->
+    <meta property="og:title" content="Impii Connected Protection">
+    <meta property="og:image" content="'/impii_logo_black.png'">
+    <meta property="og:url" content="https://app.impii.co.za/">
+
+    <!--  Non-Essential, But Recommended -->
+    <meta property="og:description" content="Impii Connected Protection">
+    <meta property="og:site_name" content="Impii Connected Protection">
+
+
+    <meta name="author" content="Impii">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 

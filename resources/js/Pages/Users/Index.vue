@@ -1,40 +1,42 @@
 <template>
   <div>
     <Head title="Users" />
-    <h1 class="mb-8 text-3xl font-bold">Users</h1>
+    <h1 class="mb-8 text-3xl font-bold">Impii Users</h1>
+
     <div class="flex items-center justify-between mb-6">
       <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset">
         <label class="block text-gray-700">Role:</label>
         <select v-model="form.role" class="form-select mt-1 w-full">
           <option :value="null" />
-          <option value="user">User</option>
-          <option value="owner">Owner</option>
+          <option value="admin">admin</option>
+          <option value="agent">agent</option>
+          <option value="client">client</option>
         </select>
-        <label class="block mt-4 text-gray-700">Trashed:</label>
-        <select v-model="form.trashed" class="form-select mt-1 w-full">
-          <option :value="null" />
-          <option value="with">With Trashed</option>
-          <option value="only">Only Trashed</option>
-        </select>
+
       </search-filter>
-      <Link class="btn-indigo" href="/users/create">
-        <span>Create</span>
-        <span class="hidden md:inline">&nbsp;User</span>
-      </Link>
+
+
     </div>
     <div class="bg-white rounded-md shadow overflow-x-auto">
       <table class="w-full whitespace-nowrap">
         <tr class="text-left font-bold">
-          <th class="pb-4 pt-6 px-6">Name</th>
+          <th class="pb-4 pt-6 px-6">First</th>
+          <th class="pb-4 pt-6 px-6">Last</th>
           <th class="pb-4 pt-6 px-6">Email</th>
-          <th class="pb-4 pt-6 px-6" colspan="2">Role</th>
+          <th class="pb-4 pt-6 px-6" colspan="1">Primary Role</th>
+          <th class="pb-4 pt-6 px-6" colspan="2">Assigned Roles</th>
         </tr>
         <tr v-for="user in users" :key="user.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
             <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/users/${user.id}/edit`">
               <img v-if="user.photo" class="block -my-2 mr-2 w-5 h-5 rounded-full" :src="user.photo" />
-              {{ user.name }}
+              {{ user.first_name }}
               <icon v-if="user.deleted_at" name="trash" class="flex-shrink-0 ml-2 w-3 h-3 fill-gray-400" />
+            </Link>
+          </td>
+          <td class="border-t">
+            <Link class="flex items-center px-6 py-4" :href="`/users/${user.id}/edit`" tabindex="-1">
+              {{ user.last_name }}
             </Link>
           </td>
           <td class="border-t">
@@ -44,15 +46,39 @@
           </td>
           <td class="border-t">
             <Link class="flex items-center px-6 py-4" :href="`/users/${user.id}/edit`" tabindex="-1">
-              {{ user.owner ? 'Owner' : 'User' }}
+              {{ user.primary_role }}
             </Link>
           </td>
+          <td class="border-t">
+            <Link class="flex items-center px-6 py-4" :href="`/users/${user.id}/edit`" tabindex="-1">
+              <font-awesome-icon v-if="user.roles.includes('admin')" class="mr-2"
+                                 icon="a-solid fa-lock"></font-awesome-icon>
+              <font-awesome-icon v-if="user.roles.includes('agent')" class="mr-2"
+                                 icon="a-solid fa-user-secret"></font-awesome-icon>
+              <font-awesome-icon v-if="user.roles.includes('client')" class="mr-2"
+                                 icon="a-solid fa-shield"></font-awesome-icon>
+            </Link>
+          </td>
+
+          <td class="border-t">
+
+            <button type="button" @click="makeAdmin(user.id)" class="inline-block px-4 py-1.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Make Admin</button>
+
+
+            <button type="button" @click="makeAgent(user.id)" class="inline-block ml-2 px-4 py-1.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Make Agent</button>
+
+
+          </td>
+
+
           <td class="w-px border-t">
             <Link class="flex items-center px-4" :href="`/users/${user.id}/edit`" tabindex="-1">
               <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
             </Link>
           </td>
         </tr>
+
+
         <tr v-if="users.length === 0">
           <td class="px-6 py-4 border-t" colspan="4">No users found.</td>
         </tr>
@@ -69,6 +95,7 @@ import Layout from '@/Shared/Layout'
 import throttle from 'lodash/throttle'
 import mapValues from 'lodash/mapValues'
 import SearchFilter from '@/Shared/SearchFilter'
+import axios from "axios";
 
 export default {
   components: {
@@ -103,6 +130,15 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null)
     },
+
+    makeAdmin(_id){
+      this.$inertia.put(`/users/make/admin/`+_id)
+    },
+
+    makeAgent(_id){
+      this.$inertia.put(`/users/make/agent/`+_id)
+    },
+
   },
 }
 </script>

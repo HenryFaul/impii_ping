@@ -21,4 +21,9 @@ class Emergency extends Model
         'emergency_closed'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

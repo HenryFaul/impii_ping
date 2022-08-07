@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasOne(AgentDetail::class);
     }
 
+    public function emergency()
+    {
+        return $this->hasMany(Emergency::class);
+    }
+
 
     public function getNameAttribute()
     {
@@ -94,6 +99,15 @@ class User extends Authenticatable
         }
     }
 
+    public function scopeWherePrimaryRole($query, $role)
+    {
+        switch ($role) {
+            case 'admin': return $query->where('primary_role', '=','admin');
+            case 'agent': return $query->where('primary_role', '=','agent');
+            case 'client': return $query->where('primary_role', '=','client');
+        }
+    }
+
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
@@ -103,13 +117,8 @@ class User extends Authenticatable
                     ->orWhere('email', 'like', '%'.$search.'%');
             });
         })->when($filters['role'] ?? null, function ($query, $role) {
-            $query->whereRole($role);
-        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
-            if ($trashed === 'with') {
-                $query->withTrashed();
-            } elseif ($trashed === 'only') {
-                $query->onlyTrashed();
-            }
+            $query->wherePrimaryRole($role);
         });
+
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AgentDetail;
 use App\Models\User;
+use App\Models\Voucher;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -11,28 +13,76 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Permission\Models\Role;
 
 
 class UsersController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        $this->authorize('adminOnly',$user);
+
         return Inertia::render('Users/Index', [
-            'filters' => Request::all('search', 'role', 'trashed'),
-            'users' => Auth::user()->account->users()
-                ->orderByName()
-                ->filter(Request::only('search', 'role', 'trashed'))
+            'filters' => Request::all('search', 'role'),
+            'users' => User::where('primary_role','!=',null)
+                ->filter(Request::only('search', 'role'))
                 ->get()
-                ->transform(fn ($user) => [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'cell_no' => $user->cell_no,
-                    'photo' => $user->photo_path ? URL::route('image', ['path' => $user->photo_path, 'w' => 40, 'h' => 40, 'fit' => 'crop']) : null,
-                    'deleted_at' => $user->deleted_at,
-                ]),
+                ->transform(function ($user) {
+                    return [
+                        'id' => $user->id,
+                        'first_name' => $user->first_name,
+                        'last_name' => $user->last_name,
+                        'primary_role' => $user->primary_role,
+                        'email' => $user->email,
+                        'cell_no' => $user->cell_no,
+                        'roles'=>(null !== $user) ? ($user->roles->pluck('name')) : (['none']),
+                        'permissions'=>(null !== $user) ? ($user->permissions->pluck('name')) : (['none']),
+                        'photo' => $user->photo_path ? URL::route('image', ['path' => $user->photo_path, 'w' => 40, 'h' => 40, 'fit' => 'crop']) : null,
+                        'deleted_at' => $user->deleted_at,
+                    ];
+                }),
         ]);
     }
+
+    public function makeAdmin($user_id){
+
+        $user = Auth::user();
+        $this->authorize('adminOnly',$user);
+
+        $user_find = User::find($user_id);
+
+        $user_find->assignRole('admin');
+
+        return Redirect::back()->with('success', 'Role updated.');
+
+
+    }
+
+    public function makeAgent($user_id){
+
+        $user = Auth::user();
+        $this->authorize('adminOnly',$user);
+
+        $user_find = User::find($user_id);
+
+        $agent_detail = AgentDetail::find($user_id);
+
+        if ($agent_detail === null){
+                 AgentDetail::create([
+                'user_id'=>$user_find->id
+            ]);
+
+            $user_find->assignRole('agent');
+
+        }
+
+
+        return Redirect::back()->with('success', 'Role updated.');
+
+
+    }
+
 
     public function create()
     {

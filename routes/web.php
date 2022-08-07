@@ -14,6 +14,15 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SecurityDetailController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VoucherController;
+use App\Mail\NewAgentMarkdown;
+use App\Mail\NewDetailMarkdown;
+use App\Mail\NewEmegencyMarkdown;
+use App\Mail\NewRegistrationMarkdown;
+use App\Models\Emergency;
+use App\Models\SecurityDetail;
+use App\Models\User;
+use App\Models\Voucher;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -75,6 +84,7 @@ Route::get('/vouchers', [VoucherController::class, 'index'])
     ->name('vouchers')
     ->middleware('auth');
 
+
 Route::get('/voucher/{voucher_key}', [VoucherController::class, 'voucher'])
     ->name('voucher.key')
     ->middleware('auth');
@@ -82,8 +92,20 @@ Route::get('/voucher/{voucher_key}', [VoucherController::class, 'voucher'])
 //SOS
 
 Route::get('/sos', function () {
-    return Inertia::render('Users/Sos');
+    return Inertia::render('Emergency/Create');
 })->middleware(['auth'])->name('sos');
+
+Route::get('/emergencies', [EmergencyController::class, 'index'])
+    ->name('emergencies')
+    ->middleware('auth');
+
+Route::get('emergency/{emergency_id}/edit', [EmergencyController::class, 'edit'])
+    ->name('emergency.edit')
+    ->middleware('auth');
+
+Route::put('emergency/{emergency_id}/update', [EmergencyController::class, 'update'])
+    ->name('emergency.update')
+    ->middleware('auth');
 
 /*Route::get('/help', [EmergencyController::class, 'location'])
     ->name('help')
@@ -115,9 +137,9 @@ Route::put('admin/detail/{detail}/update', [SecurityDetailController::class, 'up
 
 //Client
 
-Route::get('/client', function () {
+/*Route::get('/client', function () {
     return Inertia::render('Client/Index');
-})->middleware(['auth'])->name('client');
+})->middleware(['auth'])->name('client');*/
 
 //Agent
 
@@ -170,6 +192,16 @@ Route::get('/', [DashboardController::class, 'index'])
     ->middleware('auth');
 
 // Users
+
+
+Route::put('users/make/admin/{user_id}', [UsersController::class, 'makeAdmin'])
+    ->name('users.makeAdmin')
+    ->middleware('auth');
+
+Route::put('users/make/agent/{user_id}', [UsersController::class, 'makeAgent'])
+    ->name('users.makeAgent')
+    ->middleware('auth');
+
 
 Route::get('users', [UsersController::class, 'index'])
     ->name('users')
@@ -270,3 +302,49 @@ Route::get('reports', [ReportsController::class, 'index'])
 Route::get('/img/{path}', [ImagesController::class, 'show'])
     ->where('path', '.*')
     ->name('image');
+
+
+// Welcome template
+
+Route::get('test/welcome', function (){
+
+    $user_id = Auth::id();
+    $user = User::find($user_id);
+    $voucher= Voucher::find(1);
+    return new NewRegistrationMarkdown($user,$voucher);
+
+})->name('test.welcome');
+
+Route::get('test/emergency', function (){
+
+    $user_id = Auth::id();
+    $user = User::find($user_id);
+    $emergency= Emergency::find(1);
+
+    return new NewEmegencyMarkdown($user, $emergency);
+
+})->name('test.emergency');
+
+Route::get('test/detail', function (){
+
+    $user_id = Auth::id();
+    $user = User::find($user_id);
+
+    $detail= SecurityDetail::find(1);
+
+    return new NewDetailMarkdown($user, $detail);
+
+})->name('test.details');
+
+Route::get('test/agent', function (){
+
+    $user_id = Auth::id();
+    $user = User::find($user_id);
+    $detail= SecurityDetail::find(1);
+    $agent_user = User::role('agent')->with('agentdetail')->where('id','=',1)->get();
+
+    return new NewAgentMarkdown($user, $detail,$agent_user);
+
+})->name('test.agent');
+
+
