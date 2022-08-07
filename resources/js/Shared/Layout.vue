@@ -21,6 +21,11 @@
           </div>
           <div class="md:text-md flex items-center justify-between p-4 w-full text-sm bg-white border-b md:px-12 md:py-0">
             <div class="mr-4 mt-1">Impii - connected protection</div>
+            <div>
+
+              <button v-if="deferredPrompt" class="underline font-bold" @click="install">Install App..</button>
+
+            </div>
             <dropdown class="mt-1" placement="bottom-end">
               <template #default>
                 <div class="group flex items-center cursor-pointer select-none">
@@ -52,13 +57,14 @@
   </div>
 </template>
 
-<script>
+<script >
 import { Link } from '@inertiajs/inertia-vue3'
 import Icon from '@/Shared/Icon'
 import Logo from '@/Shared/Logo'
 import Dropdown from '@/Shared/Dropdown'
 import MainMenu from '@/Shared/MainMenu'
 import FlashMessages from '@/Shared/FlashMessages'
+
 
 export default {
   components: {
@@ -72,5 +78,24 @@ export default {
   props: {
     auth: Object,
   },
+  data() {
+    return {
+      deferredPrompt: null
+    };
+  },
+  created() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      this.deferredPrompt = e;
+    })
+  },
+  methods: {
+    async install() {
+      this.deferredPrompt.prompt();
+    },
+  }
+
+
 }
 </script>
