@@ -36,6 +36,11 @@
         }
     </script>
 
+    <style>
+        .grecaptcha-badge {
+            visibility: hidden !important;
+        }
+    </style>
 
     {{-- Inertia --}}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=smoothscroll,NodeList.prototype.forEach,Promise,Object.values,Object.assign" defer></script>
