@@ -505,15 +505,6 @@ export default {
             alert('You need to complete to complete both the start & end dates with times.')
             break
 
-          }else{
-
-            const start = new Date(this.form.start_date)
-            const end = new Date(this.form.end_date)
-
-            if (start>=end){
-              alert('End date must be in the future silly')
-              break
-            }
           }
 
           this.form_step += 20
