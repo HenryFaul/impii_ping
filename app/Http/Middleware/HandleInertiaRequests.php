@@ -55,6 +55,7 @@ class HandleInertiaRequests extends Middleware
                     ] : null,
                 ];
             },
+            'recaptcha_site_key' => config('services.google_recaptcha.site_key'),
             'flash' => function () use ($request) {
                 return [
                     'success' => $request->session()->get('success'),

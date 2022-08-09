@@ -1,6 +1,7 @@
 import { createApp, h } from 'vue'
 import { InertiaProgress } from '@inertiajs/progress'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
+import { VueReCaptcha, useReCaptcha } from 'vue-recaptcha-v3'
 /* import the fontawesome core */
 
 /* import the fontawesome core */
@@ -16,8 +17,12 @@ createInertiaApp({
   resolve: name => require(`./Pages/${name}`),
   title: title => title ? `${title} - Impii` : 'Impii',
   setup({ el, App, props, plugin }) {
+
+    const captcheKey = props.initialPage.props.recaptcha_site_key;
     createApp({ render: () => h(App, props) })
       .use(plugin).component('FontAwesomeIcon',FontAwesomeIcon)
+      .use(VueReCaptcha, { siteKey: captcheKey } )
+      .use(useReCaptcha)
       .mount(el)
   },
 })

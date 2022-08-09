@@ -16,7 +16,7 @@
         </template>
       </div>
 
-      <form class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden" @submit.prevent="login">
+      <form class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden" @submit.prevent="reCap">
         <div class="px-10 py-12">
           <h1 class="text-center text-3xl font-bold">Register</h1>
           <div class="mt-6 mx-auto w-24 border-b-2" />
@@ -57,6 +57,7 @@ import LoadingButton from '@/Shared/LoadingButton'
 import {computed} from 'vue'
 import {usePage} from '@inertiajs/inertia-vue3'
 import {Link} from '@inertiajs/inertia-vue3'
+import { useReCaptcha } from 'vue-recaptcha-v3';
 
 
 
@@ -66,7 +67,12 @@ export default {
     LoadingButton,
     Logo,
     TextInput,
-    Link
+    Link,
+  },
+  setup() {
+    const user = computed(() => usePage().props.value.auth.user)
+    const { executeRecaptcha, recaptchaLoaded } = useReCaptcha()
+    return {user,executeRecaptcha,recaptchaLoaded}
   },
 
   data() {
@@ -79,17 +85,26 @@ export default {
         password: '',
         photo: null,
         terms: false,
+        captcha_token :null,
       }),
     }
   },
-  setup() {
-    const user = computed(() => usePage().props.value.auth.user)
-    return {user}
-  },
   methods: {
-    login() {
+    register() {
       this.form.post('/register')
     },
+
+    async reCap(){
+
+      await this.recaptchaLoaded()
+      this.form.captcha_token = await this.executeRecaptcha('login')
+      this.register()
+
+
+
+    },
+
+
   },
 }
 </script>

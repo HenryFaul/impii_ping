@@ -7,6 +7,7 @@ use App\Mail\NewRegistrationMarkdown;
 use App\Models\User;
 use App\Models\Voucher;
 use App\Providers\RouteServiceProvider;
+use App\Rules\Recaptcha;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +46,7 @@ class RegisteredUserController extends Controller
             'cell_no' => 'required|digits:10',
             'terms' => 'required|in:true,1',
             'email' => 'required|string|email|max:255|unique:users',
+            'captcha_token'  => [new Recaptcha],
             'password' => ['required', Rules\Password::defaults()],
         ]);
 
