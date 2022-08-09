@@ -36,10 +36,14 @@
 
           </label>
         </div>
-        <div class="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
+
+        <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
+
+          <Link v-if="true" href="/login" class="btn-indigo ">Login</Link>
           <loading-button :loading="form.processing" class="btn-impii ml-auto" type="submit">Register</loading-button>
 
         </div>
+
       </form>
     </div>
   </div>

@@ -55,7 +55,7 @@ export default {
     LoadingButton,
     SelectInput,
     TextInput,
-    TextareaInput
+    TextareaInput,
   },
   layout: Layout,
   remember: 'form',
@@ -68,7 +68,7 @@ export default {
         address: '',
         emergency_details: '',
         browser_lat: '0',
-        browser_long: '0'
+        browser_long: '0',
       }),
     }
   },
@@ -78,36 +78,36 @@ export default {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           position => {
-            this.form.browser_lat=position.coords.latitude;
-            this.form.browser_long=position.coords.longitude;
+            this.form.browser_lat=position.coords.latitude
+            this.form.browser_long=position.coords.longitude
 
           },
           error => {
-
-            alert(error);
+            alert(error)
           },
         );
 
       } else {
-        alert('Geolocation is not supported by this browser.');
+        alert('Geolocation is not supported by this browser.')
       }
 
     },
 
-    post() {
-      this.form.post('/help', {
-      })
+    async post() {
+
+      this.form.browser_lat === '0' ? await this.location() : null
+
+      this.form.post('/help', {})
     },
 
     beforeMount()
     {
       setInterval(function() {
-        this.location();
-      }, 5000);
+        this.location()
+      }, 5000)
 
+    },
 
-    }
-,
 
   },
 
