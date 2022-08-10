@@ -33,14 +33,20 @@
             <span class="text-sm underline">
                   <a href="https://impii.co.za/terms-conditions/" target="_blank">Terms & Conditions</a>
             </span>
+            <div v-if="form.errors.terms" class="mt-2 text-red-600 w-full">You need to accept to continue</div>
 
           </label>
+
+          <div v-if="form.errors.captcha_token" class="text-lg text-red-600 mt-4 mb-2" >Hmmm seems you are a Robot (Captcha error)...</div>
+
         </div>
+
+
 
         <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
 
           <Link v-if="true" href="/login" class="btn-indigo ">Login</Link>
-          <loading-button :loading="form.processing" class="btn-impii ml-auto" type="submit">Register</loading-button>
+          <loading-button :loading="form.processing" class="btn-impii ml-1" type="submit">Register</loading-button>
 
         </div>
 

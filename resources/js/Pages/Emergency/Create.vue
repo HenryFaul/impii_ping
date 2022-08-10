@@ -81,14 +81,18 @@ export default {
             this.form.browser_lat=position.coords.latitude
             this.form.browser_long=position.coords.longitude
 
+            return true
+
           },
           error => {
             alert(error)
+            return false
           },
         );
 
       } else {
         alert('Geolocation is not supported by this browser.')
+        return true
       }
 
     },
