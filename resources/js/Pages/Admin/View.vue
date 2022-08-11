@@ -41,7 +41,7 @@
 
                   <select-input  v-model="form.agent_id"
                                 class="pb-8 pr-6 w-full lg:w-1/2" label="Agent">
-                    <option v-for="agent in agent_users" :value="agent.id" :key="agent.id" >{{agent.first_name}}</option>
+                    <option v-for="agent in agent_users" :value="agent.id" :key="agent.id" >{{agent.first_name}} - {{agent.email}}</option>
 
                   </select-input>
 

@@ -22,4 +22,6 @@ Our team will contact you now.
 Kind Regards,<br>
 
 The Impii Team
+
+<a href="https://impii.co.za/terms-conditions/">** Terms & Conditions</a>
 @endcomponent
