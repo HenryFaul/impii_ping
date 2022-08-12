@@ -2,13 +2,8 @@
   <div>
     <Head title="Dashboard"/>
     <h1 class="mb-8 text-3xl font-bold">SOS</h1>
-    <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
 
-      <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-
-        <div class="text-lg w-full">SOS Emergency</div>
-
-        <div class="w-full mt-2 mb-2 bg-white rounded-md shadow overflow-hidden">
+        <div class="w-full mt-2 mb-2 bg-white rounded-md p-2 shadow overflow-hidden">
           <form>
             <div class="flex flex-wrap w-full -mb-8 -mr-6 p-8">
 
@@ -33,11 +28,8 @@
           </form>
         </div>
 
-
-      </div>
-
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -85,7 +77,7 @@ export default {
 
           },
           error => {
-            alert(error)
+            console.log(error)
             return false
           },
         );
@@ -108,7 +100,7 @@ export default {
     {
       setInterval(function() {
         this.location()
-      }, 5000)
+      }, 2000)
 
     },
 

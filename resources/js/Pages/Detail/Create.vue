@@ -247,7 +247,7 @@
                   <tr>
                     <td>Protection type:</td>
                     <td>
-                      <div v-if="form.protection_type ===1">
+                      <div v-if="form.protection_type === '1'">
                         Personal Protection
                       </div>
                       <div v-else>

@@ -3,7 +3,6 @@
     <Head title="Dashboard" />
     <h1 class="mb-8 text-3xl font-bold">Admin Security detail</h1>
 
-    <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
 
       <div class="flex flex-wrap -mb-8 -mr-6 p-8">
 
@@ -238,8 +237,6 @@
 
     </div>
 
-
-  </div>
 </template>
 
 <script>
