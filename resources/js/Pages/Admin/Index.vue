@@ -27,7 +27,7 @@
           </div>
         </div>
 
-
+        {{security_details}}
 
         <div class="mt-2 mb-2">
           <div class="text-lg mb-2">Security History</div>

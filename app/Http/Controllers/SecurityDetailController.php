@@ -57,8 +57,8 @@ class SecurityDetailController extends Controller
             $detail->update(['agent_id' => $request->get('agent_id'), 'agent_accepted' => 1]);
             $user = User::find($detail->client_id);
             $agent_user = User::role('agent')->with('agentdetail')->where('id','=',$user)->get();
-            $mail= new NewAgentMarkdown($user,$detail,$agent_user);
-            Mail::to($user->email)->send($mail);
+            //$mail= new NewAgentMarkdown($user,$detail,$agent_user);
+           // Mail::to($user->email)->send($mail);
 
 
         }
