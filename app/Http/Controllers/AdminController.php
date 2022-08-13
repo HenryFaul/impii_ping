@@ -13,9 +13,10 @@ class AdminController extends Controller
     //
     public function index()
     {
-        $user_id = Auth::id();
+        $user = Auth::user();
+        $this->authorize('adminOnly',$user);
 
-        $security_details = SecurityDetail::where('client_id',$user_id)->get();
+        $security_details = SecurityDetail::all();
 
         return Inertia::render('Admin/Index',['security_details'=>$security_details]);
 
