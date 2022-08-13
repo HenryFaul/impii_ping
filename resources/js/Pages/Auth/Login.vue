@@ -31,7 +31,7 @@
 
         <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
 
-          <Link v-if="true" href="/register" class="btn-indigo ">Register</Link>
+          <Link v-if="true" href="/register" class="text-sm text-gray-700 underline ml-2 mr-2  ">Not registered yet?</Link>
           <loading-button :loading="form.processing" class="btn-impii ml-1" type="submit">Login</loading-button>
 
         </div>
