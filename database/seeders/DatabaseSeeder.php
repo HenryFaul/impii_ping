@@ -7,6 +7,7 @@ use App\Models\Agency;
 use App\Models\AgentDetail;
 use App\Models\Contact;
 use App\Models\Organization;
+use App\Models\Service;
 use App\Models\User;
 use App\Models\Voucher;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+
+        //services
+
+        $private_protection = Service::create([
+            'service_name'=>'Personal Protection',
+            'tag_line'=>'For all your social needs',
+            'description'=>'Affordable personal bodyguard & designated driver to keep you and your loved ones safe in all
+                        social scenarios.',
+            'currency'=>'ZAR',
+            'hourly_rate'=>200,]);
+
+        $cpo_protection = Service::create([
+            'service_name'=>'Advanced CPO Protection',
+            'tag_line'=>'For all your high-risk needs',
+            'description'=>'Closed Protection Officers are well trained and armed. The premium service will keep you safe in
+                        high-risk environments.',
+            'currency'=>'ZAR',
+            'hourly_rate'=>500,]);
 
         //Agency
 

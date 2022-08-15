@@ -6,6 +6,7 @@ use App\Mail\NewAgentMarkdown;
 use App\Mail\NewDetailMarkdown;
 use App\Models\PaymentHistory;
 use App\Models\SecurityDetail;
+use App\Models\Service;
 use App\Models\User;
 use App\Models\Voucher;
 use Billow\Contracts\PaymentProcessor;
@@ -20,6 +21,16 @@ use Inertia\Inertia;
 class SecurityDetailController extends Controller
 {
     //
+
+    public function create()
+    {
+
+        $services = Service::all();
+
+        return Inertia::render('Detail/Create', [
+            'services' => $services
+        ]);
+    }
 
     public function index(PaymentProcessor $payfast, Request $request, SecurityDetail $detail)
     {

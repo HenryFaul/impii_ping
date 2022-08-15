@@ -40,9 +40,14 @@ use Inertia\Inertia;
 
 //Security Detail
 
-Route::get('/detail/new', function () {
+/*Route::get('/detail/new', function () {
     return Inertia::render('Detail/Create');
-})->middleware(['auth'])->name('detail.create');
+})->middleware(['auth'])->name('detail.create');*/
+
+Route::get('/detail/new', [SecurityDetailController::class, 'create'])
+    ->name('detail.create')
+    ->middleware('auth');
+
 
 
 Route::get('detail/{detail}/view', [SecurityDetailController::class, 'index'])

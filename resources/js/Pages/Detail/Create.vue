@@ -29,97 +29,97 @@
                   v-model="form.protection_type" :error="form.protection_type.country"
                   class="pb-8 pr-6 w-full lg:w-1/2" label="Protection Type"
                 >
-                  <option value="1">Personal Protection</option>
-                  <option value="2">CPO Protection</option>
+                  <option value="0">Personal Protection</option>
+                  <option value="1">CPO Protection</option>
                 </select-input>
+              </div>
+
+              <div v-if="form.protection_type==='0'" class="p2 m-2 mb-10">
+                <div class="flex justify-center">
+                  <div class="block rounded-lg shadow-lg bg-coolGray-100  max-w-sm text-center">
+                    <div class="py-3 px-6 border-b border-gray-300">
+                      {{services[0].service_name}}
+                    </div>
+                    <div class="p-6">
+                      <h5 class="text-gray-900 text-xl font-medium mb-2">
+                        {{services[0].tag_line}}
+                      </h5>
+                      <p class="text-gray-700 text-base mb-4">
+                        {{services[0].description}}
+                      </p>
+                      <div class="w-full">
+                        <table class="w-full">
+                          <tr>
+                            <th>Features</th>
+                          </tr>
+                          <tr>
+                            <td>Personal Bodyguard</td>
+                            <td>
+                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Designated Driver</td>
+                            <td>
+                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Combat Training</td>
+                            <td>
+                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Medical Training</td>
+                            <td>
+                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>For informal events</td>
+                            <td>
+                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>For high-risk events</td>
+                            <td>
+                              <icon name="cross-solid" :class="'fill-red-600'" class="mr-2 w-6 h-6" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Carries Firearm</td>
+                            <td>
+                              <icon name="cross-solid" :class="'fill-red-600'" class="mr-2 w-6 h-6" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Advanced CPO Training</td>
+                            <td>
+                              <icon name="cross-solid" :class="'fill-red-600'" class="mr-2 w-6 h-6" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="py-3 px-6 border-t border-gray-300 text-gray-600">
+                      R{{services[0].hourly_rate}} per hour.
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div v-if="form.protection_type==='1'" class="p2 m-2 mb-10">
                 <div class="flex justify-center">
                   <div class="block rounded-lg shadow-lg bg-coolGray-100  max-w-sm text-center">
                     <div class="py-3 px-6 border-b border-gray-300">
-                      Personal Protection
+                      {{services[1].service_name}}
                     </div>
                     <div class="p-6">
-                      <h5 class="text-gray-900 text-xl font-medium mb-2">For all your social needs</h5>
+                      <h5 class="text-gray-900 text-xl font-medium mb-2"> {{services[1].tag_line}}</h5>
                       <p class="text-gray-700 text-base mb-4">
-                        Affordable personal bodyguard & designated driver to keep you and your loved ones safe in all
-                        social scenarios.
-                      </p>
-                      <div class="w-full">
-                        <table class="w-full">
-                          <tr>
-                            <th>Features</th>
-                          </tr>
-                          <tr>
-                            <td>Personal Bodyguard</td>
-                            <td>
-                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Designated Driver</td>
-                            <td>
-                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Combat Training</td>
-                            <td>
-                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Medical Training</td>
-                            <td>
-                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>For informal events</td>
-                            <td>
-                              <icon name="tick-solid" :class="'fill-impii'" class="mr-2 w-6 h-6" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>For high-risk events</td>
-                            <td>
-                              <icon name="cross-solid" :class="'fill-red-600'" class="mr-2 w-6 h-6" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Carries Firearm</td>
-                            <td>
-                              <icon name="cross-solid" :class="'fill-red-600'" class="mr-2 w-6 h-6" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Advanced CPO Training</td>
-                            <td>
-                              <icon name="cross-solid" :class="'fill-red-600'" class="mr-2 w-6 h-6" />
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="py-3 px-6 border-t border-gray-300 text-gray-600">
-                      R200 per hour.
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div v-if="form.protection_type==='2'" class="p2 m-2 mb-10">
-                <div class="flex justify-center">
-                  <div class="block rounded-lg shadow-lg bg-coolGray-100  max-w-sm text-center">
-                    <div class="py-3 px-6 border-b border-gray-300">
-                      Advanced Protection
-                    </div>
-                    <div class="p-6">
-                      <h5 class="text-gray-900 text-xl font-medium mb-2">For all your high-risk needs.</h5>
-                      <p class="text-gray-700 text-base mb-4">
-                        Closed Protection Officers are well trained and armed. The premium service will keep you safe in
-                        high-risk environments.
+                        {{services[1].description}}
                       </p>
                       <div class="w-full">
                         <table class="w-full">
@@ -178,7 +178,7 @@
                       </div>
                     </div>
                     <div class="py-3 px-6 border-t border-gray-300 text-gray-600">
-                      R500 per hour.
+                      R{{services[1].hourly_rate}} per hour.
                     </div>
                   </div>
                 </div>
@@ -215,7 +215,7 @@
             </div>
             <div v-if="form_step===40"  id="s3" >
               <h1 class="mb-8 text-lg font-bold">Actual start date & time  </h1>
-              <div class="pb-2 pr-6 w-full h-96 mt-2 lg:w-1/2 mt-1">
+              <div class="pb-2 pr-6 w-full mt-2 lg:w-1/2 mt-1">
                 <label for="start_date">Start Date</label>
                 <datepicker id="start_date" v-model="form.start_date" class="mt-3 mb-3"  />
                 <div class="text-xs text-info flex flex-nowrap mt-1">
@@ -228,7 +228,7 @@
               <h1 class="mb-8 text-lg font-bold">Planned end date & time  </h1>
 
 
-              <div class="pb-2 pr-6 w-full h-96 mt-2 h-48 lg:w-1/2 mt-1">
+              <div class="pb-2 pr-6 w-full  mt-2 h-48 lg:w-1/2 mt-1">
                 <label for="start_date">End Date</label>
                 <datepicker id="end_date" v-model="form.end_date"  class="mt-3 mb-3" />
                 <div class="text-xs flex flex-nowrap mt-1">
@@ -247,11 +247,9 @@
                   <tr>
                     <td>Protection type:</td>
                     <td>
-                      <div v-if="form.protection_type === '1'">
-                        Personal Protection
-                      </div>
-                      <div v-else>
-                        CPO Protection
+
+                      <div>
+                        {{services[form.protection_type].service_name}}
                       </div>
                     </td>
                   </tr>
@@ -288,7 +286,7 @@
                   <tr>
                     <td>Hourly rate</td>
                     <td>
-                      R{{ security_rate }} per hour
+                      R{{ services[form.protection_type].hourly_rate }} per hour
                     </td>
                   </tr>
                   <tr>
@@ -420,6 +418,9 @@ export default {
   },
 
   layout: Layout,
+  props: {
+    services: Array,
+  },
   remember: 'form',
   data() {
     return {
@@ -431,7 +432,7 @@ export default {
         city: 'pe',
         client_briefing:null,
         region: null,
-        protection_type: '1',
+        protection_type: '0',
         postal_code: null,
         voucher: null,
         start_date: null,
@@ -447,7 +448,6 @@ export default {
       start_nicely:'',
       end_nicely:'',
       security_hours: 0,
-      security_rate: 200,
       estimated_total: 0,
       voucher_value: 0,
       voucher_id:0,
@@ -610,10 +610,10 @@ export default {
       if (this.form.start_date != null && this.form.end_date != null) {
         this.security_hours = (Math.abs(end - start) / 36e5).toFixed(2)
 
-        this.form.protection_type==='1'?this.security_rate=200:this.security_rate=500
+        //this.form.protection_type==='1'?this.security_rate=200:this.security_rate=500
 
         //set security type
-        this.estimated_total = (this.security_hours * this.security_rate).toFixed(2)
+        this.estimated_total = (this.security_hours * this.services[this.form.protection_type].hourly_rate).toFixed(2)
         this.final_total = this.estimated_total
         //check if valid voucher
 
@@ -645,7 +645,7 @@ export default {
         city:this.form.city,
         start_date:this.form.start_date,
         planned_end_date:this.form.end_date,
-        hourly_rate:this.security_rate,
+        hourly_rate:this.services[this.form.protection_type].hourly_rate,
         voucher_id:this.voucher_id,
         voucher_max:this.voucher_value,
       }
