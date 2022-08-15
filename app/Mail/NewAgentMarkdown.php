@@ -21,13 +21,14 @@ class NewAgentMarkdown extends Mailable implements ShouldQueue
     public $detail;
     public $agent_user;
     public $agent_url;
+    public $agency;
 
-    public function __construct(User $user, $detail,$agent_user)
+    public function __construct(User $user, $detail,$agent_user,$agency)
     {
         $this->user=$user;
         $this->detail=$detail;
         $this->agent_user=$agent_user;
-
+        $this->agency=$agency;
         $agent_id = $this -> detail->agent_id === null || $this -> detail->agent_id===0? 1:($this -> detail->agent_id);
         $this->agent_url = "https://app.impii.co.za/agent/" . $agent_id ."/profile";
     }

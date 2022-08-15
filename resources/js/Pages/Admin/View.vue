@@ -6,12 +6,17 @@
 
       <div class="flex flex-wrap -mb-8 -mr-6 p-8">
 
-
         <div class="mt-4 w-full mt-3 mb-1">
 
           <div class="text-xl mb-2 font-bold">Security detail status:
 
-            <span class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded">{{detail.detail_status }}</span>
+            <span v-if="detail.detail_status==='Pending'" class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded">{{detail.detail_status }}</span>
+            <span v-if="detail.detail_status==='Accepted'" class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-500 text-white rounded">{{detail.detail_status }}</span>
+            <span v-if="detail.detail_status==='Started'" class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-300 text-white rounded">{{detail.detail_status }}</span>
+            <span v-if="detail.detail_status==='Ended'" class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-indigo-600 text-white rounded">{{detail.detail_status }}</span>
+            <span v-if="detail.detail_status==='Closed'" class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-500 text-white rounded">{{detail.detail_status }}</span>
+
+
           </div>
           <div class="max-w-3xl w-full bg-white rounded-md shadow overflow-hidden mt-4 mr-2 mb-4 p-4">
 

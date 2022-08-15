@@ -50,8 +50,12 @@
                 <Link class="group flex items-center py-3" :href="`/detail/${detail.id}/view`">
                   <icon name="shield-solid" class="mr-2 w-6 h-6"/>
                   <div class="underline"> {{ detail.id }}) [{{ detail.city }}] {{ detail.start_date }}
-                    <span
-                      class="text-xs m-2 inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-impii text-white rounded-full">{{detail.detail_status }}</span>
+
+                    <span v-if="detail.detail_status==='Pending'" class="bg-impii text-xs m-2 inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  text-white rounded-full">{{detail.detail_status }}</span>
+                    <span v-if="detail.detail_status==='Accepted'" class="bg-blue-500 text-xs m-2 inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  text-white rounded-full">{{detail.detail_status }}</span>
+                    <span v-if="detail.detail_status==='Started'" class="bg-yellow-300  text-xs m-2 inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  text-white rounded-full ">{{detail.detail_status }}</span>
+                    <span v-if="detail.detail_status==='Ended'" class="bg-indigo-600 text-xs m-2 inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  text-white rounded-full">{{detail.detail_status }}</span>
+                    <span v-if="detail.detail_status==='Closed'" class="bg-green-500 text-xs m-2 inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  text-white rounded-full">{{detail.detail_status }}</span>
 
                   </div>
                 </Link>

@@ -34,6 +34,13 @@
       </Link>
     </div>
 
+    <div v-if="user.roles.includes('admin')"  class="mb-4">
+      <Link class="group flex items-center py-3" href="/admin">
+        <icon name="building" class="mr-2 w-6 h-6" :class="isUrl('admin') ? 'fill-impii' : 'fill-white group-hover:fill-impii'" />
+        <div :class="isUrl('admin') ? 'text-impii text-lg font-bold ' : 'text-white text-lg font-bold  group-hover:text-impii'">Agency</div>
+      </Link>
+    </div>
+
 
   </div>
 </template>

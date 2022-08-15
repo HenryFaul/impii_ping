@@ -23,6 +23,9 @@
             <option value="0">Not Available</option>
           </select-input>
 
+          <div class="mt-3 mb-8 ">Agency: {{agency.agency_name}}</div>
+
+
           <textarea-input :error="form.errors.accreditations" v-model="form.accreditations" class="pb-8 pr-6 w-full"
                           placeholder_val="Your accreditations & certifications..."
                           label="Accreditations"/>
@@ -63,6 +66,7 @@ export default {
   layout: Layout,
   props: {
     agent_user: Object,
+    agency:Object
   },
   remember: 'form',
   setup() {

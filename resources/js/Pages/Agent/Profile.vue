@@ -6,11 +6,6 @@
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
 
       <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-
-
-
-
-
         <div class="flex mt-2 mb-2 w-full justify-center">
           <div class="block p-6 w-full rounded-lg shadow-lg bg max-w-sm">
 
@@ -60,10 +55,50 @@
 
         <div class="flex mt-2 mb-2 w-full justify-center">
           <div class="block p-6 w-full rounded-lg shadow-lg bg max-w-sm">
+            <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">Approvals</h5>
+
+            <table class="w-full">
+              <tr>
+                <td>Personal Protection: </td>
+                <td>
+
+                  <icon v-if="agent_user[0].agentdetail.is_personal_protection ===1" name="tick-solid" class="mr-2 w-6 h-6"  />
+                  <icon  v-else name="cross-solid" class="mr-2 w-6 h-6"  />
+
+                </td>
+              </tr>
+              <tr>
+                <td>CPO Protection:</td>
+                <td>
+                  <icon v-if="agent_user[0].agentdetail.is_cpo_protection ===1" name="tick-solid" class="mr-2 w-6 h-6"  />
+                  <icon v-else name="cross-solid" class="mr-2 w-6 h-6"  />
+                </td>
+              </tr>
+
+            </table>
+
+          </div>
+        </div>
+
+        <div class="flex mt-2 mb-2 w-full justify-center">
+          <div class="block p-6 w-full rounded-lg shadow-lg bg max-w-sm">
             <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">Contact details</h5>
 
-            <div class="mb-2">Email: {{agent_user[0].email}}</div>
+            <div class="mt-3 mb-2">Email: {{agent_user[0].email}}</div>
             <div class="mb-2">Cell: {{agent_user[0].cell_no}}</div>
+
+          </div>
+        </div>
+
+        <div class="flex mt-2 mb-2 w-full justify-center">
+          <div class="block p-6 w-full rounded-lg shadow-lg bg max-w-sm">
+            <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">Agency</h5>
+
+            <div class="mt-3 mb-2">Name: {{agency.agency_name}}</div>
+            <div class="mt-4 mb-2 mt-2 underline">About</div>
+            <div class="mb-2"> {{agency.about_summary}}</div>
+            <div class="mt-4 mb-2 mt-2 underline">Disclosures</div>
+            <div class="mb-2">{{agency.disclosures}}</div>
 
           </div>
         </div>
@@ -109,6 +144,7 @@ export default {
   layout: Layout,
   props: {
     agent_user: Object,
+    agency:Object,
     photo:null
   },
   beforeMount(){

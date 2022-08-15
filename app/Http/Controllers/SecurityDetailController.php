@@ -54,12 +54,15 @@ class SecurityDetailController extends Controller
         //if agent id
         if ($request->get('agent_id')) {
 
-            $detail->update(['agent_id' => $request->get('agent_id'), 'agent_accepted' => 1]);
-            $user = User::find($detail->client_id);
-            $agent_user = User::role('agent')->with('agentdetail')->where('id','=',$request->get('agent_id'))->get();
-            $mail= new NewAgentMarkdown($user,$detail,$agent_user);
-            Mail::to($user->email)->send($mail);
+            // only if agent is different
+            if ($request->get('agent_id') != $detail->agent_id){
 
+                $detail->update(['agent_id' => $request->get('agent_id'), 'agent_accepted' => 1]);
+                $user = User::find($detail->client_id);
+                $agent_user = User::role('agent')->with('agentdetail')->where('id','=',$request->get('agent_id'))->get();
+                $mail= new NewAgentMarkdown($user,$detail,$agent_user);
+                Mail::to($user->email)->send($mail);
+            }
 
         }
 
@@ -75,6 +78,14 @@ class SecurityDetailController extends Controller
             }
         }
 
+        //if detail closed
+        if ($request->get('detail_closed')) {
+            if ($detail->detail_ended) {
+                $detail->update(['detail_closed' => $request->get('detail_closed')]);
+            }
+        }
+
+
         if ($request->get('actual_end_date')) {
             $actual_end_date = $request->get('actual_end_date');
             $conv_actual_end_date = Carbon::parse($actual_end_date)->toDateTimeString();
@@ -87,7 +98,7 @@ class SecurityDetailController extends Controller
 
             //Final charge
 
-            $final_charge_calc = $calc_total_charge - $detail->deposit_received - $detail->voucher_max;
+            $final_charge_calc = $calc_total_charge +$detail->tip_charge - $detail->deposit_received - $detail->voucher_max;
             $final_charge = max($final_charge_calc, 0);
 
             //Update detail
@@ -96,18 +107,26 @@ class SecurityDetailController extends Controller
         }
 
         //update status
-        if ($detail->detail_closed == 1) {
-            $detail->status = "Closed";
-        } elseif ($detail->detail_ended == 1) {
-            $detail->status = "Ended";
-        } elseif ($detail->detail_started == 1) {
-            $detail->status = "Started";
-        }elseif ($detail->agent_accepted == 1) {
-            $detail->status = "Accepted";
+        //closed = green
+        //started = blue
+        //accepted = purple
+        //pending = impii
+
+        if ($detail->detail_closed === 1) {
+            $detail->detail_status = "Closed";
+        } else if ($detail->detail_ended === 1) {
+            $detail->detail_status = "Ended";
+        } else if ($detail->detail_started === 1) {
+            $detail->detail_status = "Started";
+        }else if ($detail->agent_accepted === 1) {
+            $detail->detail_status = "Accepted";
         }
+        $detail->save();
 
         return Redirect::back()->with('success', 'User updated.');
     }
+
+
 
 
 }

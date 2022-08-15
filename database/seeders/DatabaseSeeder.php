@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Account;
+use App\Models\Agency;
 use App\Models\AgentDetail;
 use App\Models\Contact;
 use App\Models\Organization;
@@ -23,6 +24,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        //Agency
+
+        $agency = Agency::create([
+            'agency_name'=>'Private',
+            'about_summary'=>'Agent operates in their private capacity.',
+            'disclosures'=>'Disclosures as per agent private resume & accreditations.',
+        ]);
 
         //create vouchers
 

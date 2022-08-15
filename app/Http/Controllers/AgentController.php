@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agency;
 use App\Models\AgentDetail;
 use App\Models\SecurityDetail;
 use App\Models\User;
@@ -20,19 +21,25 @@ class AgentController extends Controller
     public function index($user)
     {
         $agent_user = User::role('agent')->with('agentdetail')->where('id','=',$user)->get();
+        $id  = $agent_user[0]->agentdetail->agency_id;
+        $agency = Agency::find($id);
 
         return Inertia::render('Agent/Edit', [
-            'agent_user'=>$agent_user
+            'agent_user'=>$agent_user,
+            'agency'=>$agency
         ]);
     }
 
     public function profile($user)
     {
         $agent_user = User::role('agent')->with('agentdetail')->where('id','=',$user)->get();
+        $id  = $agent_user[0]->agentdetail->agency_id;
+        $agency = Agency::find($id);
         $photo_path= $agent_user[0]->photo_path;
 
         return Inertia::render('Agent/Profile', [
             'agent_user'=>$agent_user,
+            'agency'=>$agency,
             'photo' => $photo_path ? URL::route('image', ['path' => $photo_path, 'w' => 200, 'h' => 200, 'fit' => 'crop']) : null,]);
     }
 

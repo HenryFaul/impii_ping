@@ -11,6 +11,7 @@ class AgentDetail extends Model
 
     protected $fillable = [
         'user_id',
+        'agency_id',
         'tag_line',
         'accreditations',
         'about_summary',
@@ -20,5 +21,10 @@ class AgentDetail extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function agency()
+    {
+        return $this->hasOne(Agency::class);
     }
 }

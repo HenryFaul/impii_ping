@@ -18,6 +18,7 @@ use App\Mail\NewAgentMarkdown;
 use App\Mail\NewDetailMarkdown;
 use App\Mail\NewEmegencyMarkdown;
 use App\Mail\NewRegistrationMarkdown;
+use App\Models\Agency;
 use App\Models\Emergency;
 use App\Models\SecurityDetail;
 use App\Models\User;
@@ -341,9 +342,10 @@ Route::get('test/agent', function (){
     $user_id = Auth::id();
     $user = User::find($user_id);
     $detail= SecurityDetail::find(1);
+    $agency= Agency::find(1);
     $agent_user = User::role('agent')->with('agentdetail')->where('id','=',1)->get();
 
-    return new NewAgentMarkdown($user, $detail,$agent_user);
+    return new NewAgentMarkdown($user, $detail,$agent_user,$agency);
 
 })->name('test.agent');
 

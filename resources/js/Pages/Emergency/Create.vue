@@ -3,7 +3,7 @@
     <Head title="Dashboard"/>
     <h1 class="mb-8 text-3xl font-bold">SOS</h1>
 
-        <div class="w-full mt-2 mb-2 bg-white rounded-md p-2 shadow overflow-hidden">
+        <div class="max-w-3xl w-full mt-2 mb-2 bg-white rounded-md p-2 shadow overflow-hidden">
           <form>
             <div class="flex flex-wrap w-full -mb-8 -mr-6 p-8">
 

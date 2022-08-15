@@ -19,6 +19,7 @@ module.exports = {
       orange: colors.orange,
       yellow: colors.yellow,
       green: colors.green,
+      blue:colors.blue,
       gray: colors.blueGray, coolGray:colors.coolGray,trueGray:colors.trueGray,  impii:'#fcaf3b',
       indigo: {
         100: '#e6e8ff',

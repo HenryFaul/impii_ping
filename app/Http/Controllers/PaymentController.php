@@ -186,7 +186,7 @@ class PaymentController extends Controller
 
         //set tip
         $securityDetail->tip_charge=$request->get('tip_charge');
-        $securityDetail->final_charge=$securityDetail->final_charg+$request->get('tip_charge');
+        $securityDetail->final_charge=$securityDetail->final_charge+$request->get('tip_charge');
         $securityDetail->save();
         return Redirect::back()->with('success', 'Tip updated.');
 

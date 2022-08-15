@@ -24,6 +24,16 @@ We have assigned an agent to your security detail.
 | Tag line: | {{$agent_user[0]->agentdetail->tag_line}}
 @endcomponent
 
+**Licensed agency details:**
+
+@component('mail::table')
+    | Item       | value         |
+    | :--------- | :------------- |
+    | Name: |  {{$agency->agency_name}} |
+    | About: | {{$agency->about_summary}}
+    | Disclosures: | {{$agency->disclosures}}
+@endcomponent
+
 
 @component('mail::button', ['url' => $agent_url])
 VIEW AGENT

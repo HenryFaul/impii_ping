@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasOne(AgentDetail::class);
     }
 
+    public function agency()
+    {
+        return $this->hasOneThrough(AgentDetail::class, Agency::class);
+    }
+
     public function emergency()
     {
         return $this->hasMany(Emergency::class);
